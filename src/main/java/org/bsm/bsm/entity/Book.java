@@ -1,6 +1,6 @@
 package org.bsm.bsm.entity;
 
-
+//存储一本图书的基本信息，等待修改
 public class Book {
     private Integer Bid;
     private  String Bname;

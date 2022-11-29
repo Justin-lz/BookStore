@@ -135,3 +135,17 @@ CREATE TABLE `bsm`.`manager` (
                                  `Mauthority` ENUM("common", "power") NOT NULL,
                                  `Mpassword` VARCHAR(20) NOT NULL,
                                  PRIMARY KEY (`Mid`));
+
+CREATE
+    VIEW `user_info` AS
+SELECT
+    `user`.`Uname` AS `Uname`,
+    `user`.`Uid` AS `Uid`,
+    `user`.`Ubirth` AS `Ubirth`,
+    `user`.`Usex` AS `Usex`,
+    `user`.`Uaddress` AS `Uaddress`,
+    `user`.`Uphone` AS `Uphone`
+FROM
+    `user`;
+
+CREATE  OR REPLACE VIEW `user_log_in` AS (select Uid, Uname, UPword from bsm.user );
