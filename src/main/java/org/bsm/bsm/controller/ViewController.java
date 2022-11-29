@@ -20,6 +20,6 @@ public class ViewController {
     public String home(Model model){
         model.addAttribute("messageHome",new GsonBuilder().setDateFormat("yyyy年MM月dd日 HH:mm:ss").create().toJson(messageServiceIml.getMessageHome()));
         model.addAttribute("typeHome",new  GsonBuilder().create().toJson(typeServiceIml.getAllType()));
-        return "home";
+        return "home.html";
     }
 }
