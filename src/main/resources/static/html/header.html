@@ -1,19 +1,18 @@
-<div class="header" xmlns:font-style="http://www.w3.org/1999/xhtml">
+<div class="header">
 
     <table>
         <tr>
             <td width="90%">
                 <h1><b>图书销售管理系统</b></h1>
                 <ul>
-                    <li><a href="http://localhost:63342/BSM/templates/home.html">主页</a></li>
-                    <li><a href="">个人中心</a></li>
-                    <li><a href="">书籍查询</a></li>
-                    <li><a href="">历史订单</a></li>
-                    <li><a href="">购物车</a></li>
-                    <li><a href="">留言板</a></li>
-                    <li><a href="login.html">登录</a></li>
-                    <li><a href="regist.html">注册</a></li>
-
+                    <li><a href="http://localhost:8080/home">主页</a></li>
+                    <li><a href="http://localhost:8080/person">个人中心</a></li>
+                    <li><a href="http://localhost:8080/search">书籍查询</a></li>
+                    <li><a href="http://localhost:8080/history">历史订单</a></li>
+                    <li><a href="http://localhost:8080/cart">购物车</a></li>
+                    <li><a href="http://localhost:8080/message">留言板</a></li>
+                    <li><a href="http://localhost:8080/log">登录</a></li>
+                    <li><a href="http://localhost:8080/register">注册</a></li>
                 </ul>
             </td>
 
@@ -37,8 +36,14 @@
                         <td colspan="2">
                             <li id="log">当前用户：未登录</li>
                         </td>
+                        <script>
+                            let urlGetUserName ="http://localhost:8080/BSM/User/getUserName"
+                            $.get(urlGetUserName,function (data,status){
+                                document.getElementById("log").innerText="当前用户："+data;
+                            })
 
 
+                        </script>
                     </tr>
                 </table>
 
