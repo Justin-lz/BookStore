@@ -9,16 +9,12 @@
     <script type="text/javascript" src="../static/script/jquery-1.7.2.js"></script>
     <script>
         $(function(){
-            /*公共部分
-             * 导航栏
-             * footer CopyRight
-             */
             $(".headerpage").load("../static/html/header.html");
             $(".footerpage").load("../static/html/footer.html");
         });
     </script>
 </head>
-<body>
+<body id="body">
 
 <div class="headerpage"></div>
 
@@ -262,15 +258,16 @@
     </tr>
 </table>
 
-    <div id="page_nav">
+    <br>
+    <div class="B_a" id="page_nav">
         <a href="#">首页</a>
         <a href="#">上一页</a>
+        <a  href="#">【1】</a>
+        <a  href="#">2</a>
         <a href="#">3</a>
-        【4】
-        <a href="#">5</a>
-        <a href="#">下一页</a>
-        <a href="#">末页</a>
-        共10页，30条记录 到第<input value="4" name="pn" id="pn_input"/>页
+        <a  href="#">下一页</a>
+        <a   href="#">末页</a>
+        共3页，18条记录 到第<input value="1" name="pn" id="pn_input"/>页
         <input type="button" value="确定">
     </div>
 

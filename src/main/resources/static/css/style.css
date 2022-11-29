@@ -1,13 +1,16 @@
 @CHARSET "UTF-8";
 
 body {
-    overflow: hidden;
+    overflow: auto;
 }
 
-#left {;
+body a{
+    text-decoration: none;
 }
 
-#right {
+body a:hover {
+    text-decoration: underline;
+    color: #304de3;
 }
 
 * {
@@ -15,6 +18,7 @@ body {
     font-family: "Microsoft Yahei";
     color: #666;
 }
+
 
 div {
     margin: auto;
@@ -28,10 +32,6 @@ div {
     width: 1200px;
 }
 
-.L_tb_a li a{
-    text-decoration: none;
-
-}
 
 .L_tb_a li {
     margin-bottom:15px;
@@ -40,9 +40,10 @@ div {
 #main {
     height: 460px;
     width: 1200px;
-    border: 1px black solid;
-    overflow: auto;
+
 }
+
+
 
 #bottom {
 
