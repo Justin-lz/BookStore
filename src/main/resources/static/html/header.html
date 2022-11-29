@@ -22,7 +22,7 @@
                 <table>
                     <tr height="70px">
                         <td width="80%">
-                            <input type="text"  value="请输入图书名" name="tv_search">
+                            <input type="text"  placeholder="请输入图书名"  name="tv_search" id="tv_search">
                         </td>
 
                         <td width="20%">
@@ -42,6 +42,12 @@
                                 document.getElementById("log").innerText="当前用户："+data;
                             })
 
+                            /*window.onload=function (){
+                                document.getElementById("bt_search").onclick=function () {
+                                    let bookname= $("#tv_search").val();
+                                    alert(bookname);
+                                };
+                            }*/
 
                         </script>
                     </tr>

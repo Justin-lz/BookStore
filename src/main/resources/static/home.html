@@ -8,9 +8,49 @@
     <script src="js/jquery-3.6.1.js"></script>
     <script type="text/javascript" src="script/jquery-1.7.2.js"></script>
     <script>
+
         $(function(){
-            $(".headerpage").load("/html/header.html");
-            $(".footerpage").load("/html/footer.html");
+            $(".headerpage").load("html/header.html");
+            $(".footerpage").load("html/footer.html");
+
+            let url="http://localhost:8080/BSM/Type/getALl"
+
+                $.get(url, function (data) {
+
+                    if (data === "true") {
+                        window.location.href="context.html";
+                        return true;
+                    } else {
+                        alert(data);
+                        return false;
+                    }
+                });
+
+            // th:typeList ='${typeHome}';
+            // typeList = eval(JSON.parse(typeList) );
+            // th:messageList ='${messageHome}';
+            // messageList = eval(JSON.parse(messageList));
+            //
+            // console.log(typeList);
+            // console.log(messageList);
+
+
+            /*加载标签推荐*/
+            let lablevalues = ["小说1", "小说2", "小说3", "小说4", "小说5", "小说6"];
+            let lablesID=["lable1","lable2","lable3","lable4","lable5","lable6"];
+            for(let i=0;i<lablesID.length;i++){
+                document.getElementById(lablesID[i]).innerHTML =lablevalues[i];}
+
+            /*图书书名查询*/
+
+            $("#submit").click(function () {
+
+               // document.getElementById("lable1").innerHTML ="haha";
+             //  let bookname= $("#tv_search").value;
+           let a=document.getElementById("tv_search").value;
+           alert(a);
+            alert("haha");
+            });
         });
     </script>
 </head>
@@ -28,12 +68,12 @@
             <p><b>按标签分类搜索</b></p>
             <br>
                 <ul type="square" class="L_tb_a">
-                    <li><a href="">武侠</a>
-                    <li><a href="">科幻</a>
-                    <li><a href="">古典</a>
-                    <li><a href="">喜剧</a>
-                    <li><a href="">都市</a>
-                    <li><a href="">家庭</a>
+                    <li><a href=""> <p id="lable1"></p></a>
+                    <li><a href=""> <p id="lable2"></p></a>
+                    <li><a href=""><p id="lable3"></p></a>
+                    <li><a href=""><p id="lable4"></p></a>
+                    <li><a href=""><p id="lable5"></p></a>
+                    <li><a href=""><p id="lable6"></p></a>
                 </ul>
         </td>
 
@@ -245,7 +285,7 @@
 
                     <td  align="center">
 
-                        <input type="button" name="submit" value="我也来评">
+                        <input type="button" id="submit" value="我也来评">
                     </td>
                 </tr>
 
