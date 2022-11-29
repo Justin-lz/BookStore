@@ -1,11 +1,16 @@
 .header {
     width: 1200px;
     background: #8fe88f;
-    margin: 20px auto 0;
     height:100px;
     border: 2px black solid;
     border-radius: 10px;
-    padding: 10px;
+    padding: 15px;
+}
+
+#bt_search{
+
+    background: green;
+    color: #fff;
 }
 
 .header_title {
@@ -31,16 +36,17 @@
 }
 
 #log {
-    list-style: none;
     float: right;
-    width: fit-content;
+    width: 180px;
     text-align: center;
     border-radius: 5px;
     background: green;
     height: fit-content;
     margin: 5px;
+    color: #fff;
     border: 2px black solid;
     padding: 2px 4px;
+    list-style: none;
 }
 
 .header ul li a {

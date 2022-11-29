@@ -1,14 +1,50 @@
 <div class="header">
-    <h1>图书销售管理系统</h1>
-    <ul>
-        <li><a href="">主页</a></li>
-        <li><a href="">个人中心</a></li>
-        <li><a href="">书籍查询</a></li>
-        <li><a href="">历史订单</a></li>
-        <li><a href="">购物车</a></li>
-        <li><a href="">留言板</a></li>
-        <li><a href="">登录</a></li>
-        <li><a href="">注册</a></li>
-        <li id="log">当前用户：未登录</li>
-    </ul>
+
+    <table>
+        <tr>
+            <td width="90%">
+                <h1>图书销售管理系统</h1>
+                <ul>
+                    <li><a href="http://localhost:63342/BSM/templates/home.html">主页</a></li>
+                    <li><a href="">个人中心</a></li>
+                    <li><a href="">书籍查询</a></li>
+                    <li><a href="">历史订单</a></li>
+                    <li><a href="">购物车</a></li>
+                    <li><a href="">留言板</a></li>
+                    <li><a href="login.html">登录</a></li>
+                    <li><a href="regist.html">注册</a></li>
+
+                </ul>
+            </td>
+
+
+            <td width="10%">
+
+                <table>
+                    <tr height="70px">
+                        <td width="80%">
+                            <input type="text"  value="请输入图书名" name="tv_search">
+                        </td>
+
+                        <td width="20%">
+
+                            <input type="button" name="bt_search" id="bt_search" value="搜索">
+                        </td>
+                    </tr>
+
+
+                    <tr >
+                        <td colspan="2">
+                            <li id="log">当前用户：未登录</li>
+                        </td>
+
+
+                    </tr>
+                </table>
+
+
+            </td>
+        </tr>
+    </table>
+
 </div>

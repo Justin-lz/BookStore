@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="../static/css/style.css">
+    <script type="text/javascript" src="../static/script/jquery-1.7.2.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#sub_btn").click(function () {
+                let usernameValue = $("#username").val();
+                let passwordValue = $("#password").val();
+                let passwordReg = /^\w{5,15}$/;
+                if (!passwordReg.test(passwordValue)) {
+                    alert("密码不合法！字母/数字5到15位！");
+                    return false;
+                }
+                let repwdValue = $("#repwd").val();
+                if (passwordValue !== repwdValue) {
+                    alert("确认密码和密码不一致！");
+                    return false;
+                }
+                let emailValue = $("#email").val();
+                let emailReg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+                if (!emailReg.test(emailValue)) {
+                    alert("邮箱地址输入错误！");
+                    return false;
+                }
+
+                let codeValue = $("#code").val();
+                if (codeValue === "") {
+                    alert("验证码不能为空！");
+                    return false;
+                }
+                if (codeValue !== "6n6np") {
+                    alert("验证码错误！");
+                    return false;
+                }
+
+
+                let url = "http://localhost:8080/sign-in?email=" + emailValue + "&name=" + usernameValue + "&password=" + passwordValue + "&password_again=" + repwdValue + "";
+
+                $.get(url, function (data) {
+                    if (data === "true") {
+                        alert("恭喜您注册成功！请前往登录。");
+                        window.location.href="login.html";
+                    } else {
+                        alert(data);
+                        return false;
+                    }
+                });
+
+
+            });
+        });
+
+    </script>
+    <style type="text/css">
+        .login_form {
+            height: 420px;
+            margin-top: 25px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="header">
+    <img class="logo_img" alt="" src="static/img/usst1.jpg">
+    <span class="wel_word">在线学习平台</span>
+
+</div>
+
+<div class="login_banner">
+
+    <div id="l_content">
+        <span class="login_word">欢迎注册</span>
+    </div>
+
+    <div id="content">
+        <div class="login_form">
+            <div class="login_box">
+                <div class="tit">
+                    <h1>上理工会员</h1>
+                    <span class="errorMsg"></span>
+                </div>
+                <div class="form">
+
+                        <label>用户名称：</label>
+                        <input class="itxt" type="text" placeholder="请输入用户名" autocomplete="off"
+                               tabindex="1" name="username" id="username"/>
+                        <br/>
+                        <br/>
+                        <label>用户密码：</label>
+                        <input class="itxt" type="password" placeholder="请输入密码" autocomplete="off"
+                               tabindex="1" name="password" id="password"/>
+                        <br/>
+                        <br/>
+                        <label>确认密码：</label>
+                        <input class="itxt" type="password" placeholder="确认密码" autocomplete="off"
+                               tabindex="1" name="repwd" id="repwd"/>
+                        <br/>
+                        <br/>
+                        <label>电子邮件：</label>
+                        <input class="itxt" type="text" placeholder="请输入邮箱地址" autocomplete="off"
+                               tabindex="1" name="email" id="email"/>
+                        <br/>
+                        <br/>
+                        <label>验证码：</label>
+                        <input class="itxt" type="text" style="width: 150px;" id="code" name="code"/>
+                        <img alt="" src="static/img/code.bmp" style="float: right; margin-right: 40px">
+                        <br/>
+                        <br/>
+                        <input type="button" value="注册" id="sub_btn"/>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="bottom">
+		<span>
+			在线学习平台.Copyright &copy;2022
+		</span>
+</div>
+</body>
+</html>
