@@ -18,9 +18,9 @@ public class BookController {
     private BookServiceIml bookServiceIml;
 
     @GetMapping("all")
-    public String all(){ return new GsonBuilder().setDateFormat("yyyy年MM月dd日 HH:mm:ss").create().toJson(bookServiceIml.queryAllBook()); }
+    public String getBookAll(){ return new GsonBuilder().create().toJson(bookServiceIml.queryAllBook()); }
 
     @GetMapping("insert")
-    public String insert(Book book){ return bookServiceIml.insertBook(book).toString(); }
+    public String newBook(Book book){ return bookServiceIml.insertBook(book).toString(); }
 
 }

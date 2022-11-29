@@ -149,3 +149,5 @@ FROM
     `user`;
 
 CREATE  OR REPLACE VIEW `user_log_in` AS (select Uid, Uname, UPword from bsm.user );
+
+CREATE VIEW `message_show` AS (select Mid, Uname, Mword, Mtime, Mread from bsm.message, bsm.user where message.Uid = user.Uid)
