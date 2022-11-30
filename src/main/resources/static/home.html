@@ -65,7 +65,7 @@
                 </ul>
         </td>
 
-        <td width="80%">
+        <td width="75%">
             <div id="book">
                 <div align="center"><p><b>热门图书推荐</b></p></div>
 
@@ -258,14 +258,21 @@
             </div>
         </td>
 
-        <td width="10%" valign="top">
+        <td width="15%" valign="top">
             <table cellpadding="0" cellspacing="0">
                 <tr>
-                    <td align="center" height="200px" >
-                       <br> <p><b>用户书评，仅供参考</b></p><br>
-                        <textarea  readonly="readonly" id="liuyan" cols="20" rows="15" >《时间简史》书评--       “当我读爱因斯坦写的一本物理书时，我什么也没弄明白，不过没关系，它让我明白了别的东西。”——毕加索
-                                  《活着》书评--      “人是为活着本身而活着的，而不是为了活着之外的任何事物所活着。”      ——余华
-                        </textarea>
+                    <td>
+
+                        <p align="center"><b>用户书评，仅供参考</b></p><br>
+                        <p align="left" padding="2px"><span>用户：</span><span th:text="${message1.Uname}"></span></p>
+                        <p align="right" padding="2px"><span th:text="${message1.Mtime}"></span></p>
+                        <textarea cols="20" rows="10" align="center" th:value="${message1.Mword}"></textarea><br>
+                        
+                        
+                        
+                        <span th:text="${message2.Uname}"></span>
+                        <span th:text="${message2.Mword}"></span>
+                        <span th:text="${message2.Mtime}"></span>
                     </td>
                 </tr>
 
