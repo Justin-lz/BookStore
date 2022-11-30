@@ -20,12 +20,15 @@ public class ViewController {
 
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String home(Model model){
-        model.addAttribute("messageHome",new GsonBuilder().setDateFormat("yyyy年MM月dd日 HH:mm:ss").create().toJson(messageServiceIml.getMessageHome()));
+        List<Message> messageHome =messageServiceIml.getMessageHome()
+        model.addAttribute("messageHome1", messageHome.get(0));
+        model.addAttribute("messageHome2",messageHome.get(1));
         return "home.html";
     }
     @RequestMapping(value = "search",method = RequestMethod.GET)
     public String search(Model model, HttpServletRequest request){
         model.addAttribute("type",request.getParameter("type"));
+        model.addAttribute("str",request.getParameter("str"));
         return "search.html";
     }
 }

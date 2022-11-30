@@ -10,8 +10,8 @@ import java.util.List;
 @Mapper
 public interface BookMapper {
     @Select("Select * from bsm.book;")
-    List<Book> queryAllBook();
+    List<Book> queryAllBook();//获取所有书本数据
 
     @Insert("INSERT INTO `bsm`.`book` (`Bid`, `Bname`, `Bauthor`, `Bpress`, `Bprice`, `Bcount`, `Bresume`, `Tid`) VALUES (#{Bid}, #{Bname}, #{Bauthor},#{Bpress},#{Bprice},#{Bcount},#{Bresume},#{Tid});")
-    Integer insertBook(Book book);
+    Integer insertBook(Book book);//插入书本
 }

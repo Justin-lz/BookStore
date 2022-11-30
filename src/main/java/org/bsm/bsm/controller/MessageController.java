@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("BSM/Message")
-@Api("获取message")
+@Api(tags="message接口",description="message传输接口")
 public class MessageController {
 
     @Autowired
