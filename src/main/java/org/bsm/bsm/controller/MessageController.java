@@ -20,7 +20,7 @@ public class MessageController {
     @Autowired
     private MessageServiceIml messageServiceIml;
 
-    @GetMapping("home")
+    @GetMapping("Home")
     @ApiOperation("获取主页的留言")
     public String getHome(){
         return new GsonBuilder().setDateFormat("yyyy年MM月dd日 HH:mm:ss").create().toJson(messageServiceIml.getMessageHome());
