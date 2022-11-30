@@ -98,6 +98,11 @@ div {
 
 }
 
+#book p {
+
+    color: #090a0a;
+}
+
 .b_list {
     height: 300px;
     width: 33%;
