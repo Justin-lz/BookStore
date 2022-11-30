@@ -14,4 +14,7 @@ public interface BookMapper {
 
     @Insert("INSERT INTO `bsm`.`book` (`Bid`, `Bname`, `Bauthor`, `Bpress`, `Bprice`, `Bcount`, `Bresume`, `Tid`) VALUES (#{Bid}, #{Bname}, #{Bauthor},#{Bpress},#{Bprice},#{Bcount},#{Bresume},#{Tid});")
     Integer insertBook(Book book);//插入书本
+
+    @Select("Select * from bsm.book order by rand() limit 6;")
+    List<Book> queryHomeBook();
 }

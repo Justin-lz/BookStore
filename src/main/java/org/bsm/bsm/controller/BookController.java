@@ -24,8 +24,14 @@ public class BookController {
     @ApiOperation("返回所有图书")
     public String getBookAll(){ return new GsonBuilder().create().toJson(bookServiceIml.queryAllBook()); }
 
-    @GetMapping("insert")
+    @PostMapping("insert")
     @ApiOperation("插入图书")
     public String newBook(Book book){ return bookServiceIml.insertBook(book).toString(); }
+
+
+    @GetMapping("home")
+    @ApiOperation("返回所有图书")
+    public String getBookHome(){ return new GsonBuilder().create().toJson(bookServiceIml.queryHomeBook()); }
+
 
 }

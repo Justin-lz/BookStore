@@ -22,4 +22,9 @@ public class BookServiceIml implements BookService{
     public Integer insertBook(Book book) {
         return bookMapper.insertBook(book);
     }
+
+    @Override
+    public List<Book> queryHomeBook() {
+        return bookMapper.queryHomeBook();
+    }
 }

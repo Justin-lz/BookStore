@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface BookService {
     List<Book> queryAllBook();
+    List<Book> queryHomeBook();
     Integer insertBook(Book book);
 }
