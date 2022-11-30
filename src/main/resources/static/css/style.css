@@ -272,3 +272,17 @@ h1 {
     height: 30px;
 }
 
+.messageBlock{
+    border-radius: 5px;
+    background: green;
+    height: fit-content;
+    width: 120do;
+    margin-top: 10px;
+    border: 2px black solid;
+    padding: 2px;
+    color: #fff;
+}
+
+.white{
+    color: #fff;
+}
