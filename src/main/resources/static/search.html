@@ -1,16 +1,384 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>图书销售管理系统-搜索</title>
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-3.6.1.js"></script>
+    <script type="text/javascript" src="script/jquery-1.7.2.js"></script>
+    <script>
 
+        function getQueryString(name) {
+
+            let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            let r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+
+        let urlbook = "http://localhost:8080/BSM/Book/search?page=";
+        let page=1;
+        let urltype = "http://localhost:8080/BSM/Type/getALl"
+        let typeJson
+        function getSearchBooks(){
+            $.get(urlbook+page, function (data) {
+                let str = '<div align="center"><p><b>筛选条件：';
+                let type =getQueryString("type");
+                let s =getQueryString("str")
+                if (type!=null){
+                    str+=` 类型:`
+                    typeJson.forEach((item) => {
+                        if (item.Tid.toString()===type){
+                            str+=item.Tname;
+                        }
+                    })
+                }
+                if (s!=null){
+                    str+=` 搜索书名关键字：`;
+                    str+=s;
+                }
+                if (s==null&&type==null){
+                    str+=`无`;
+                }
+                str+=`</b></p></div>`
+                let bookJson = JSON.parse(data);
+                if (bookJson.length===0) {
+                    alert("没有更多书籍");
+                    page = document.getElementById("page").innerHTML;
+                    return true;
+                } else {
+
+                    bookJson.forEach((item) => {
+                        str+=`<div class="b_list">
+                                <div class="img_div">
+                                    <img class="book_img" alt="" src="img/book/${item.Bid}.jpg"/>
+                                </div>
+                                <div class="book_info">
+                                    <div class="book_left">
+                                        <span class="sp1" name="book1_name"> 书名:</span>
+                                        <span class="sp2"> ${item.Bname}</span>
+                                    </div>
+                                    <div class="book_left">
+                                        <span class="sp1"> 作者:</span>
+                                        <span class="sp2"> ${item.Bauthor}</span>
+                                    </div>
+                                    <div class="book_left">
+                                        <span class="sp1"> 价格:</span>
+                                        <span class="sp2"> ${item.Bprice}</span>
+                                    </div>
+                                    <div class="book_left">
+                                        <span class="sp1"> 库存:</span>
+                                        <span class="sp2"> ${item.Bcount}</span>
+                                    </div>
+                                    <div class="book_right" >
+                                        <p align="right" width="120px"><a text-align="right" href="http://localhost:8080/Book/${item.Bid}">查看详情</a>
+                                    </div>
+                                </div>
+                            </div>`;
+
+
+                    });
+                    str+=`<div style="clear:both "></div>`;
+                    document.getElementById("book").innerHTML = str;
+                    return false;
+
+                }
+            });
+        }
+
+        function lowerpage() {
+            if (page === 1) {
+                alert("已经是第一页");
+                return;
+            }
+            page = page - 1;
+            getSearchBooks();
+        }
+
+        function upperpage() {
+            page = page + 1;
+            getSearchBooks();
+        }
+
+        $(function () {
+            $(".headerpage").load("html/header.html");
+            $(".footerpage").load("html/footer.html");
+
+
+
+            $.get(urltype, function (data) {
+
+                if (data === "true") {
+                    window.location.href = "context.html";
+                    return true;
+                } else {
+                    let str = '';
+                    typeJson = JSON.parse(data);
+                    getSearchBooks();
+                    typeJson.forEach((item) => {
+                        str += `<li class="typeHref" ><a href="http://localhost:8080/search?type=${item.Tid}">${item.Tname}</a><br></li><br>`;
+
+                    });
+                    document.getElementById("typeClass").innerHTML = str;
+
+                    return false;
+
+                }
+            });
+
+
+
+
+
+        });
+
+
+        /*图书书名查询*/
+
+    </script>
 </head>
+<body id="body">
 
-<body>
+<div class="headerpage"></div>
 
+
+<div id="main">
+
+    <table class="L_tb">
+        <tr>
+
+            <td valign="top" width="10%">
+                <div class="OUTSIDE"> <br>
+                    <p><b>按标签分类搜索</b></p>
+                    <br>
+                    <ul id="typeClass" type="square" class="L_tb_a">
+
+                    </ul>
+                    <div style="clear:both "></div>
+                </div>
+
+            </td>
+
+
+
+            <td width="90%">
+                <div class="OUTSIDE">
+                    <div id="book">
+                        <div align="center"><p><b>热门图书随机推荐</b></p></div>
+
+                        <div class="b_list" name="book1">
+                            <div class="img_div">
+                                <img class="book_img" alt="" src="img/时间简史.jpg"/>
+                            </div>
+                            <div class="book_info">
+                                <div class="book_name">
+                                    <span class="sp1" name="book1_name">书名:</span>
+                                    <span id= class="sp2">时间简史</span>
+                                </div>
+                                <div class="book_author">
+                                    <span class="sp1">作者:</span>
+                                    <span class="sp2">霍金</span>
+                                </div>
+                                <div class="book_price">
+                                    <span class="sp1">价格:</span>
+                                    <span class="sp2">￥30.00</span>
+                                </div>
+                                <div class="book_sales">
+                                    <span class="sp1">销量:</span>
+                                    <span class="sp2">230</span>
+                                </div>
+                                <div class="book_amount">
+                                    <span class="sp1">库存:</span>
+                                    <span class="sp2">1000</span>
+                                </div>
+                                <div class="book_add">
+                                    <button>加入购物车</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="b_list" name="book2">
+                            <div class="img_div">
+                                <img class="book_img" alt="" src="img/时间简史.jpg"/>
+                            </div>
+                            <div class="book_info">
+                                <div class="book_name">
+                                    <span class="sp1" name="book2_name">书名:</span>
+                                    <span class="sp2">时间简史</span>
+                                </div>
+                                <div class="book_author">
+                                    <span class="sp1">作者:</span>
+                                    <span class="sp2">霍金</span>
+                                </div>
+                                <div class="book_price">
+                                    <span class="sp1">价格:</span>
+                                    <span class="sp2">￥30.00</span>
+                                </div>
+                                <div class="book_sales">
+                                    <span class="sp1">销量:</span>
+                                    <span class="sp2">230</span>
+                                </div>
+                                <div class="book_amount">
+                                    <span class="sp1">库存:</span>
+                                    <span class="sp2">1000</span>
+                                </div>
+                                <div class="book_add">
+                                    <button>加入购物车</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="b_list" name="book3">
+                            <div class="img_div">
+                                <img class="book_img" alt="" src="img/时间简史.jpg"/>
+                            </div>
+                            <div class="book_info">
+                                <div class="book_name">
+                                    <span class="sp1" name="book3_name">书名:</span>
+                                    <span class="sp2">时间简史</span>
+                                </div>
+                                <div class="book_author">
+                                    <span class="sp1">作者:</span>
+                                    <span class="sp2">霍金</span>
+                                </div>
+                                <div class="book_price">
+                                    <span class="sp1">价格:</span>
+                                    <span class="sp2">￥30.00</span>
+                                </div>
+                                <div class="book_sales">
+                                    <span class="sp1">销量:</span>
+                                    <span class="sp2">230</span>
+                                </div>
+                                <div class="book_amount">
+                                    <span class="sp1">库存:</span>
+                                    <span class="sp2">1000</span>
+                                </div>
+                                <div class="book_add">
+                                    <button>加入购物车</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="b_list" name="book4">
+                            <div class="img_div">
+                                <img class="book_img" alt="" src="img/时间简史.jpg"/>
+                            </div>
+                            <div class="book_info">
+                                <div class="book_name">
+                                    <span class="sp1" name="book4_name">书名:</span>
+                                    <span class="sp2">时间简史</span>
+                                </div>
+                                <div class="book_author">
+                                    <span class="sp1">作者:</span>
+                                    <span class="sp2">霍金</span>
+                                </div>
+                                <div class="book_price">
+                                    <span class="sp1">价格:</span>
+                                    <span class="sp2">￥30.00</span>
+                                </div>
+                                <div class="book_sales">
+                                    <span class="sp1">销量:</span>
+                                    <span class="sp2">230</span>
+                                </div>
+                                <div class="book_amount">
+                                    <span class="sp1">库存:</span>
+                                    <span class="sp2">1000</span>
+                                </div>
+                                <div class="book_add">
+                                    <button>加入购物车</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="b_list" name="book5">
+                            <div class="img_div">
+                                <img class="book_img" alt="" src="img/时间简史.jpg"/>
+                            </div>
+                            <div class="book_info">
+                                <div class="book_name">
+                                    <span class="sp1" name="book5_name">书名:</span>
+                                    <span class="sp2">时间简史</span>
+                                </div>
+                                <div class="book_author">
+                                    <span class="sp1">作者:</span>
+                                    <span class="sp2">霍金</span>
+                                </div>
+                                <div class="book_price">
+                                    <span class="sp1">价格:</span>
+                                    <span class="sp2">￥30.00</span>
+                                </div>
+                                <div class="book_sales">
+                                    <span class="sp1">销量:</span>
+                                    <span class="sp2">230</span>
+                                </div>
+                                <div class="book_amount">
+                                    <span class="sp1">库存:</span>
+                                    <span class="sp2">1000</span>
+                                </div>
+                                <div class="book_add">
+                                    <button>加入购物车</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="b_list" name="book6">
+                            <div class="img_div">
+                                <img class="book_img" alt="" src="img/时间简史.jpg"/>
+                            </div>
+                            <div class="book_info">
+                                <div class="book_name">
+                                    <span class="sp1" name="book6_name">书名:</span>
+                                    <span class="sp2">时间简史</span>
+                                </div>
+                                <div class="book_author">
+                                    <span class="sp1">作者:</span>
+                                    <span class="sp2">霍金</span>
+                                </div>
+                                <div class="book_price">
+                                    <span class="sp1">价格:</span>
+                                    <span class="sp2">￥30.00</span>
+                                </div>
+                                <div class="book_sales">
+                                    <span class="sp1">销量:</span>
+                                    <span class="sp2">230</span>
+                                </div>
+                                <div class="book_amount">
+                                    <span class="sp1">库存:</span>
+                                    <span class="sp2">1000</span>
+                                </div>
+                                <div class="book_add">
+                                    <button>加入购物车</button>
+                                </div>
+                            </div>
+                        </div>`
+
+                        <div style="clear:both "></div>
+                    </div>
+                    <div style="clear:both "></div>
+                </div>
+
+            </td>
+
+
+
+
+
+        </tr>
+    </table>
+
+    <br>
+    <div class="B_a" id="page_nav">
+        <a href="#" onclick="lowerpage();return false;">上一页</a>
+        <a id="page" href="#" onclick="return false;">1</a>
+        <a href="#" onclick="upperpage();return false;">下一页</a>
+    </div>
+    <br>
+
+
+</div>
+<div class="footerpage"></div>
 
 
 </body>
-
 </html>
+

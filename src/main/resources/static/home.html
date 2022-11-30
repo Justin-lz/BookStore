@@ -14,13 +14,14 @@
 
             let urltype = "http://localhost:8080/BSM/Type/getALl"
 
+
             $.get(urltype, function (data) {
 
                 if (data === "true") {
                     window.location.href = "context.html";
                     return true;
                 } else {
-                    let str = '<p align="center"><b>用户留言</b></p><br>';
+                    let str = '';
                     let typeJson = JSON.parse(data);
                     typeJson.forEach((item) => {
                         str += `<li class="typeHref" ><a href="http://localhost:8080/search?type=${item.Tid}">${item.Tname}</a><br></li><br>`;
@@ -95,7 +96,7 @@
                                     </div>
                                 </div>
                             </div>`;
-                        
+
 
                     });
                     str+=`<div style="clear:both "></div>`;
@@ -377,18 +378,7 @@
     </table>
 
     <br>
-    <div class="B_a" id="page_nav">
-        <a href="#">首页</a>
-        <a href="#">上一页</a>
-        <a href="#">【1】</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">下一页</a>
-        <a href="#">末页</a>
-        共3页，18条记录 到第<input value="1" name="pn" id="pn_input"/>页
-        <input type="button" value="确定">
-    </div>
-    <br>
+
 
 
 </div>

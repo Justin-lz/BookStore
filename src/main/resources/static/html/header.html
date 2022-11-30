@@ -44,8 +44,9 @@
 
                                 document.getElementById("bt_search").onclick=function () {
                                     let bookname= $("#tv_search").val();
-                                    let urlGoSerach = 'localhost:8080/search?str='+bookname;
-                                    window.open(urlGoSerach);
+                                    let urlGoSerach = "http://localhost:8080/search?str="+bookname;
+                                    let win=window.open(urlGoSerach);
+                                    win.focus();
                             }
 
                         </script>
