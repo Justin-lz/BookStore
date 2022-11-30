@@ -4,6 +4,16 @@ body {
     overflow: auto;
 }
 
+
+.OUTSIDE {
+    width: fit-content;
+    background: #8fe88f;
+    height:fit-content;
+    border: 2px black solid;
+    border-radius: 10px;
+    padding: 15px;
+}
+
 body a{
     text-decoration: none;
 }
@@ -37,6 +47,11 @@ div {
 
 }
 
+.book_add button{
+
+
+}
+
 
 .L_tb_a li {
     color: #e3e3e3;
@@ -63,7 +78,6 @@ div {
 #main {
     height: max-content;
     width: 1200px;
-    background: blue;
 }
 
 
@@ -86,7 +100,7 @@ div {
 
 .b_list {
     height: 300px;
-    width: 250px;
+    width: 33%;
     margin: 20px;
     float: left;
     margin-top: 0px;

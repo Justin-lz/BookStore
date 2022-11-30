@@ -2,6 +2,8 @@ package org.bsm.bsm.controller;
 
 
 import com.google.gson.GsonBuilder;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.bsm.bsm.entity.Book;
 import org.bsm.bsm.service.BookServiceIml;
 
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("BSM/Book")
-@Api(tag="书本接口",description="获取书本信息的接口")
+@Api(tags="书本接口",description="获取书本信息的接口")
 public class BookController {
 
     @Autowired
