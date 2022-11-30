@@ -42,12 +42,11 @@
                                 document.getElementById("log").innerText="当前用户："+data;
                             })
 
-                            /*window.onload=function (){
                                 document.getElementById("bt_search").onclick=function () {
                                     let bookname= $("#tv_search").val();
-                                    alert(bookname);
-                                };
-                            }*/
+                                    let urlGoSerach = 'localhost:8080/search?str='+bookname;
+                                    window.open(urlGoSerach);
+                            }
 
                         </script>
                     </tr>

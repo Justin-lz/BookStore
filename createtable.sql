@@ -138,15 +138,7 @@ CREATE TABLE `bsm`.`manager` (
 
 CREATE
     VIEW `user_info` AS
-SELECT
-    `user`.`Uname` AS `Uname`,
-    `user`.`Uid` AS `Uid`,
-    `user`.`Ubirth` AS `Ubirth`,
-    `user`.`Usex` AS `Usex`,
-    `user`.`Uaddress` AS `Uaddress`,
-    `user`.`Uphone` AS `Uphone`
-FROM
-    `user`;
+SELECT Uname , Uid ,Ubirth,Usex,Uaddress,Uphone,Uphone FROM bsm.user;
 
 CREATE  OR REPLACE VIEW `user_log_in` AS (select Uid, Uname, UPword from bsm.user );
 

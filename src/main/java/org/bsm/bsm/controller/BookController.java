@@ -8,9 +8,9 @@ import org.bsm.bsm.entity.Book;
 import org.bsm.bsm.service.BookServiceIml;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("BSM/Book")
@@ -20,9 +20,16 @@ public class BookController {
     @Autowired
     private BookServiceIml bookServiceIml;
 
-    @GetMapping("all")
-    @ApiOperation("返回所有图书")
-    public String getBookAll(){ return new GsonBuilder().create().toJson(bookServiceIml.queryAllBook()); }
+    @GetMapping("search")
+    @ApiOperation("返回搜索图书")
+    public String getBookSearch(@RequestParam Integer page, HttpServletRequest request){
+        String str =(String) request.getSession().getAttribute("str");
+        String type =(String) request.getSession().getAttribute("type");
+        System.out.println(str+type);
+        return new GsonBuilder().create().toJson(bookServiceIml.queryBook(page, str,type));
+
+
+    }
 
     @PostMapping("insert")
     @ApiOperation("插入图书")
@@ -30,7 +37,7 @@ public class BookController {
 
 
     @GetMapping("home")
-    @ApiOperation("返回所有图书")
+    @ApiOperation("返回主页图书")
     public String getBookHome(){ return new GsonBuilder().create().toJson(bookServiceIml.queryHomeBook()); }
 
 

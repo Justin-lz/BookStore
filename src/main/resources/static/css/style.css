@@ -109,8 +109,8 @@ div {
 
 .b_list {
     height: 300px;
-    width: 33%;
-    margin: auto;
+    width: 250px;
+    margin: 5px;
     float: left;
     border: 1px
     #e3e3e3 solid;
@@ -135,7 +135,7 @@ div {
 
 .book_info div {
     height: 10px;
-    width: 300px;
+    width: 200px;
     text-align: left;
 }
 

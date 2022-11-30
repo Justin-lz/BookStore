@@ -23,7 +23,7 @@
                     let str = '<p align="center"><b>用户留言</b></p><br>';
                     let typeJson = JSON.parse(data);
                     typeJson.forEach((item) => {
-                        str += `<li class="typeHref" ><a href="http://localhost:8080/search?value=${item.Tid}">${item.Tname}</a><br></li><br>`;
+                        str += `<li class="typeHref" ><a href="http://localhost:8080/search?type=${item.Tid}">${item.Tname}</a><br></li><br>`;
 
                     });
                     document.getElementById("typeClass").innerHTML = str;
@@ -32,7 +32,7 @@
                 }
             });
 
-            let urlmessage = "http://localhost:8080/BSM/Message/getHome"
+            let urlmessage = "http://localhost:8080/BSM/Message/Home"
 
             $.get(urlmessage, function (data) {
 
@@ -40,14 +40,19 @@
                     window.location.href = "context.html";
                     return true;
                 } else {
-                    let str = '';
+                    let str = '<p align="center"><b>用户留言</b></p><br>';
                     let messageJson = JSON.parse(data);
                     messageJson.forEach((item) => {
-                        str += `
-                        `;
+                        str += `<div class="messageBlock">
+                                    <p align="left" padding="2px"><span class="white">用户：</span><span class="white">${item.Uname}</span></p>
+                                    <p align="right" padding="2px"><span class="white">${item.Mtime}</span></p>
+                                    <div white-space="pre-wrap" with="100px"class="white">${item.Mword}</div>
+                                    <br>
+                                </div>`;
 
                     });
-                    document.getElementById("typeClass").innerHTML = str;
+                    //alert(str);
+                    document.getElementById("messageblock").innerHTML = str;
                     return false;
 
                 }
@@ -55,7 +60,7 @@
 
             let urlbook = "http://localhost:8080/BSM/Book/home"
 
-            $.get(urltype, function (data) {
+            $.get(urlbook, function (data) {
 
                 if (data === "true") {
                     window.location.href = "context.html";
@@ -66,27 +71,27 @@
                     bookJson.forEach((item) => {
                         str+=`<div class="b_list">
                                 <div class="img_div">
-                                    <img class="book_img" alt="" src="img/时间简史.jpg"/>
+                                    <img class="book_img" alt="" src="img/book/${item.Bid}.jpg"/>
                                 </div>
                                 <div class="book_info">
-                                    <div class="book_name">
-                                        <span class="sp1" name="book1_name">书名:</span>
-                                        <span class="sp2">${item.Bname}</span>
+                                    <div class="book_left">
+                                        <span class="sp1" name="book1_name"> 书名:</span>
+                                        <span class="sp2"> ${item.Bname}</span>
                                     </div>
-                                    <div class="book_author">
-                                        <span class="sp1">作者:</span>
-                                        <span class="sp2">${item.Bauthor}</span>
+                                    <div class="book_left">
+                                        <span class="sp1"> 作者:</span>
+                                        <span class="sp2"> ${item.Bauthor}</span>
                                     </div>
-                                    <div class="book_price">
-                                        <span class="sp1">价格:</span>
-                                        <span class="sp2">${item.Bprice}</span>
+                                    <div class="book_left">
+                                        <span class="sp1"> 价格:</span>
+                                        <span class="sp2"> ${item.Bprice}</span>
                                     </div>
-                                    <div class="book_amount">
-                                        <span class="sp1">库存:</span>
-                                        <span class="sp2">${item.Bcount}</span>
+                                    <div class="book_left">
+                                        <span class="sp1"> 库存:</span>
+                                        <span class="sp2"> ${item.Bcount}</span>
                                     </div>
-                                    <div class="book_add">
-                                        <a float = "right" href="http://localhost:8080/Book/${item.Bid}">查看详情</a>
+                                    <div class="book_right" >
+                                        <p align="right" width="120px"><a text-align="right" href="http://localhost:8080/Book/${item.Bid}">查看详情</a>
                                     </div>
                                 </div>
                             </div>`;
@@ -335,7 +340,7 @@
                     <div class="OUTSIDE">
                         <table cellpadding="0" cellspacing="0">
                         <tr>
-                            <td name="messageblock">
+                            <td id="messageblock">
 
                                 <p align="center"><b>用户留言</b></p><br>
 

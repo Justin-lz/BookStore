@@ -6,6 +6,7 @@ public class Book {
     private  String Bname;
     private String Bauthor;
     private String Bpress;
+    private Integer Bprice;
     private Integer Bcount;
     private String Bresume;
     private Integer Tid;
@@ -40,6 +41,14 @@ public class Book {
 
     public void setBpress(String bpress) {
         Bpress = bpress;
+    }
+
+    public Integer getBprice() {
+        return Bprice;
+    }
+
+    public void setBprice(Integer bprice) {
+        Bprice = bprice;
     }
 
     public Integer getBcount() {
