@@ -32,15 +32,38 @@ div {
     width: 1200px;
 }
 
-
-.L_tb_a li {
-    margin-bottom:15px;
+.L_tb_a{
+    list-style: none;
 
 }
-#main {
-    height: 460px;
-    width: 1200px;
 
+
+.L_tb_a li {
+    color: #e3e3e3;
+    float: left;
+    width: max-content;
+    text-align: center;
+    border-radius: 5px;
+    background: darkgreen;
+    height: fit-content;
+    margin: 5px;
+    margin-bottom:15px;
+    border: 2px black solid;
+    padding: 2px 4px;
+}
+.L_tb_a li a {
+    color: #e3e3e3;
+}
+
+.L_tb_a li a:hover {
+    color: #fba;
+    text-decoration: underline;
+}
+
+#main {
+    height: max-content;
+    width: 1200px;
+    background: blue;
 }
 
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>图书销售管理系统-首页</title>
@@ -8,7 +8,6 @@
     <script src="js/jquery-3.6.1.js"></script>
     <script type="text/javascript" src="script/jquery-1.7.2.js"></script>
     <script>
-
         $(function(){
             $(".headerpage").load("html/header.html");
             $(".footerpage").load("html/footer.html");
@@ -21,27 +20,17 @@
                         window.location.href="context.html";
                         return true;
                     } else {
-                        alert(data);
+                        let str = '';
+                        let typeJson = JSON.parse(data);
+                        typeJson.forEach((item) => {
+                            str += `<li class="typeHref" ><a href="http://localhost:8080/search?value=${item.Tid}">${item.Tname}</a><br></li>`;
+
+                        });
+                        document.getElementById("typeClass").innerHTML = str;
                         return false;
+
                     }
                 });
-
-            // th:typeList ='${typeHome}';
-            // typeList = eval(JSON.parse(typeList) );
-            // th:messageList ='${messageHome}';
-            // messageList = eval(JSON.parse(messageList));
-            //
-            // console.log(typeList);
-            // console.log(messageList);
-
-
-            /*加载标签推荐*/
-            let lablevalues = ["小说1", "小说2", "小说3", "小说4", "小说5", "小说6"];
-            let lablesID=["lable1","lable2","lable3","lable4","lable5","lable6"];
-            for(let i=0;i<lablesID.length;i++){
-                document.getElementById(lablesID[i]).innerHTML =lablevalues[i];}
-
-            /*图书书名查询*/
 
             $("#submit").click(function () {
 
@@ -52,6 +41,10 @@
             alert("haha");
             });
         });
+
+
+        /*图书书名查询*/
+
     </script>
 </head>
 <body id="body">
@@ -67,13 +60,8 @@
             <br>
             <p><b>按标签分类搜索</b></p>
             <br>
-                <ul type="square" class="L_tb_a">
-                    <li><a href=""> <p id="lable1"></p></a>
-                    <li><a href=""> <p id="lable2"></p></a>
-                    <li><a href=""><p id="lable3"></p></a>
-                    <li><a href=""><p id="lable4"></p></a>
-                    <li><a href=""><p id="lable5"></p></a>
-                    <li><a href=""><p id="lable6"></p></a>
+                <ul id="typeClass" type="square" class="L_tb_a">
+
                 </ul>
         </td>
 
@@ -310,10 +298,11 @@
         共3页，18条记录 到第<input value="1" name="pn" id="pn_input"/>页
         <input type="button" value="确定">
     </div>
+    <br>
 
-    <div class="footerpage"></div>
+
 </div>
-
+<div class="footerpage"></div>
 
 
 </body>
