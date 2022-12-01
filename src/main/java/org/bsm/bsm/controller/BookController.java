@@ -7,10 +7,12 @@ import io.swagger.annotations.ApiOperation;
 import org.bsm.bsm.entity.Book;
 import org.bsm.bsm.service.BookServiceIml;
 
+import org.bsm.bsm.util.SessionAttributeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("BSM/Book")
@@ -23,9 +25,12 @@ public class BookController {
     @GetMapping("search")
     @ApiOperation("返回搜索图书")
     public String getBookSearch(@RequestParam Integer page, HttpServletRequest request){
-        String str =(String) request.getSession().getAttribute("str");
-        String type =(String) request.getSession().getAttribute("type");
-        System.out.println(str+type);
+        HttpSession session = request.getSession();
+        String str =(String) session.getAttribute(SessionAttributeUtil.getSearchString());
+        String type =(String) session.getAttribute(SessionAttributeUtil.getSearchType());
+        System.out.println("get"+str+type);
+        session.removeAttribute(SessionAttributeUtil.getSearchString());
+        session.removeAttribute(SessionAttributeUtil.getSearchType());
         return new GsonBuilder().create().toJson(bookServiceIml.queryBook(page, str,type));
 
 

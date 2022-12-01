@@ -1,12 +1,16 @@
 package org.bsm.bsm.entity;
 
 import io.swagger.models.auth.In;
+import javax.xml.crypto.Data;
+import java.util.Date;
+
 
 public class Message {
     private Integer Mid;
     private String Uname;
     private String Mword;
-    private String Mtime;
+    private Date Mtime;
+    private Integer Uid;
 
     public Integer getMid() {
         return Mid;
@@ -32,11 +36,19 @@ public class Message {
         Mword = mword;
     }
 
-    public String getMtime() {
+    public Date getMtime() {
         return Mtime;
     }
 
-    public void setMtime(String mtime) {
+    public void setMtime(Date mtime) {
         Mtime = mtime;
+    }
+
+    public Integer getUid() {
+        return Uid;
+    }
+
+    public void setUid(Integer uid) {
+        Uid = uid;
     }
 }

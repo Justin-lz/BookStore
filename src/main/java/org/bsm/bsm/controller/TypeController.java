@@ -2,6 +2,7 @@ package org.bsm.bsm.controller;
 
 import com.google.gson.GsonBuilder;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.bsm.bsm.service.TypeServiceIml;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ public class TypeController {
     private TypeServiceIml typeServiceIml;
 
     @GetMapping("getALl")
+    @ApiOperation("返回所有类型")
     public String getTypeAll(){
         return new  GsonBuilder().create().toJson(typeServiceIml.getAllType());
     }

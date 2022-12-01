@@ -43,8 +43,9 @@
                 str+=`</b></p></div>`
                 let bookJson = JSON.parse(data);
                 if (bookJson.length===0) {
-                    alert("没有更多书籍");
+                    alert("没有更多书籍,返回上一级");
                     page = document.getElementById("page").innerHTML;
+                    history.back()
                     return true;
                 } else {
 

@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.bsm.bsm.entity.UserInfo;
 import org.bsm.bsm.entity.UserPass;
 import org.bsm.bsm.service.UserServiceIml;
+import org.bsm.bsm.util.SessionAttributeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class UserController {
     @GetMapping("getUserName")
     @ApiOperation("获取当前登录用户名")
     public String getUserName(HttpServletRequest request) {
-       UserInfo userInfo =(UserInfo) request.getSession().getAttribute("UserInfo");
+       UserInfo userInfo =(UserInfo) request.getSession().getAttribute(SessionAttributeUtil.getUserInfo());
        if (userInfo==null){
            return "未登录";
        }else {
@@ -56,7 +57,7 @@ public class UserController {
         UserInfo userInfo = userServiceIml.login(userPass);//获取用户基本信息
         if (userInfo==null) return "用户名或密码错误";
         else {
-            request.getSession().setAttribute("UserInfo",userInfo);
+            request.getSession().setAttribute(SessionAttributeUtil.getUserInfo(),userInfo);
             return "登录成功";
         }
     }

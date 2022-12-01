@@ -7,4 +7,6 @@ import java.util.List;
 public interface MessageService {
 
     public List<Message> getMessageHome();
+    public List<Message> getMessagePage(Integer page);
+    public Integer newMessage(Integer uid,String Mword);
 }

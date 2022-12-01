@@ -17,12 +17,12 @@ public class BookServiceIml implements BookService{
     @Override
     public List<Book> queryBook(Integer page, String str, String type) {
         if (str==null&&type==null)
-            return bookMapper.queryAllBook((page-1)*15);
+            return bookMapper.queryAllBook((page-1)*16);
         if (str==null)
-            return bookMapper.queryTypeBook((page-1)*15,type);
+            return bookMapper.queryTypeBook((page-1)*16,type);
         if (type==null)
-            return bookMapper.queryStrBook((page-1)*15,str);
-        return bookMapper.queryTypeStrBook((page-1)*15,type,str);
+            return bookMapper.queryStrBook((page-1)*16,str);
+        return bookMapper.queryTypeStrBook((page-1)*16,type,str);
 
 
     }

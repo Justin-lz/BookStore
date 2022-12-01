@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图书销售管理系统-留言板</title>
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-3.6.1.js"></script>
+    <script type="text/javascript" src="script/jquery-1.7.2.js"></script>
+
+    <style>
+        .background {
+            width: 1200px;
+            background: #8fe88f;
+            height:fit-content;
+            border: 2px black solid;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .user {
+            text-align: left;
+            text-size-adjust: 10 sp;
+            color: white;
+        }
+
+        .time {
+            text-align: right;
+            text-size-adjust: 10 sp;
+            color: white;
+            float: right;
+        }
+
+        .message {
+            width: 987px;
+            height: fit-content;
+            line-height: 30px;
+            padding: 5px;
+            font-size: 15sp;
+            white-space: pre-wrap;
+            text-align: left;
+            border: 2px solid rgb(30, 91, 30);
+            border-radius: 5px;
+            color: rgba(98, 217, 98, 0.57);
+        }
+
+        .oneblock {
+            border-radius: 5px;
+            background: green;
+            height: fit-content;
+            width: 1000px;
+            margin-top: 10px;
+            border: 2px black solid;
+            padding: 5px;
+            color: #fff;
+        }
+
+        .changeButten{
+            height: fit-content;
+            width: 200px;
+            padding: 5px;
+        }
+
+        #newMessage {
+            height: fit-content;
+            width: fit-content;
+        }
+
+        #lowerpage {
+            height: fit-content;
+            width: fit-content;
+            float: left;
+        }
+
+        .page {
+            text-align: right;
+            text-size-adjust: 10 sp;
+            text-decoration-color: black;
+            float: center;
+        }
+
+        #upperpage {
+            height: fit-content;
+            width: fit-content;
+            float: right;
+        }
+
+        body {
+            overflow: scroll;
+        }
+
+        #mess{
+            background: rgba(55, 175, 55, 0.66);
+            color: white;
+        }
+    </style>
+
+    <script>
+        var page = 1;
+        var messages = []
+        var urlget = "http://localhost:8080/BSM/Message/page?page=";
+        var urlpos = "http://localhost:8080/BSM/Message/new";
+
+        function getmessages() {
+            $.get(urlget + page, function (data, status) {
+                if (status !== "success") {
+                    console.log("服务器或网络错误");
+                    return;
+                }
+                messages = JSON.parse(data);
+                render();
+            });
+        }
+
+        function postmessage() {
+            let str = document.getElementById("mess").value;//$("#mess").val();
+            console.log(str);
+            if (str.length === 0) {
+                console.log("输入栏不能空");
+                return;
+            }
+            $.post(urlpos, {
+                Mword: str
+            }, function (data, status) {
+                console.log(data + "\n" + status);
+                if (status !== "success") {
+                    console.log("服务器或网络错误");
+                    return;
+                }
+                if (data.length===0) {
+                    alert('您的发言再审核后会出现在留言板上');
+                    document.getElementById("mess").value = "";
+                    window.location.reload()
+                } else {
+                    console.log(data);
+                }
+            })
+        }
+
+        function lowerpage() {
+            if (page === 1) {
+                console.log("已经是第一页");
+                return;
+            }
+            page = page - 1;
+            getmessages();
+        }
+
+        function upperpage() {
+            page = page + 1;
+            getmessages();
+        }
+
+        function render() {
+            var str = "";
+            if (messages.length === 0) {
+                console.log("没有更多新信息");
+                page = document.getElementById("page").innerHTML;
+                return;
+            }
+            messages.forEach((item) => {
+                str += `
+                        <div class="oneblock">
+                            <span class="user">${item.Uname}</span><br>
+                            <div class="message">${item.Mword}</div>
+                            <span class="time">${item.Mtime}</span><br>
+                        </div>
+                        `;
+
+            });
+            //console.log(str);
+            section = document.getElementById("show");
+            section.innerHTML = str;
+            document.getElementById("page").innerHTML = (page);
+        }
+
+        $(function () {
+            $(".headerpage").load("html/header.html");
+            $(".footerpage").load("html/footer.html");
+
+            getmessages();
+        })
+    </script>
+</head>
+<body>
+
+<div class="headerpage"></div>
+<div style="clear: both"></div>
+
+<div class="background">
+    <div style="clear:both "></div>
+    <section id="show"></section>
+
+
+    <div class="oneblock">
+        <center>
+            <textarea id="mess" name="留言" cols="140" rows="10" ></textarea>
+            <br>
+
+        </center>
+
+    </div>
+    <center>
+        <button id="newMessage" onclick="postmessage()">留言</button>
+    </center>
+</div>
+<div class="changeButten">
+    <center>
+        <button id="lowerpage" onclick="lowerpage()">上一页</button>
+        <span>第</span>
+        <span id="page">1</span>
+        <span>页</span>
+        <button id="upperpage" onclick="upperpage()">下一页</button>
+    </center>
+</div>
+<div style="clear: both"></div>
+<div class="footerpage"></div>
+
+</body>
+</html>
