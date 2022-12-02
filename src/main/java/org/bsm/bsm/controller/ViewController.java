@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
@@ -49,4 +50,13 @@ public class ViewController {
     @GetMapping(value = "register")
     @ApiOperation(value = "注册跳转")
     public String register(){return "register.html";}
+
+    @GetMapping(value = "person")
+    @ApiOperation(value = "个人信息跳转",notes = "检查是否登录，未登录进行跳转登录")
+    public String person(HttpServletRequest request, HttpServletResponse response){
+        if (request.getSession().getAttribute(SessionAttributeUtil.getUserInfo())==null) {
+            return "redirect:/login";
+        }else
+            return "person.html";
+    }
 }
