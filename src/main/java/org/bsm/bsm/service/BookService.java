@@ -1,8 +1,6 @@
 package org.bsm.bsm.service;
 
 import org.bsm.bsm.entity.Book;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.List;
 
 public interface BookService {
