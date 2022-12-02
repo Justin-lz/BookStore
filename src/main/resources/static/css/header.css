@@ -1,6 +1,6 @@
 .header {
-    width: 1200px;
-    background: #8fe88f;
+    width: fit-content;
+    background: #39987c;
     height:fit-content;
     border: 2px black solid;
     border-radius: 10px;

@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link type="text/css" rel="stylesheet" href="../static/css/style.css">
-    <script type="text/javascript" src="../static/script/jquery-1.7.2.js"></script>
-    <script type="text/javascript">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <script src="js/jquery-3.6.1.js"></script>
+    <script type="text/javascript" src="script/jquery-1.7.2.js"></script>
+    <script>
+
+        $(function () {
+            $(".headerpage").load("html/header.html");
+            $(".footerpage").load("html/footer.html");
+        })
+    </script>
+    <script >
 
         $(function () {
 
@@ -38,14 +47,11 @@
                     alert("验证码错误！");
                     return false;
                 }
-
-
-                let url = "http://localhost:8080/sign-in?email=" + emailValue + "&name=" + usernameValue + "&password=" + passwordValue + "&password_again=" + repwdValue + "";
-
-                $.get(url, function (data) {
-                    if (data === "true") {
+                let url = "http://localhost:8080/BSM/User/register?UPword=" + passwordValue +"&Uname=" + usernameValue + "";
+                $.post(url, function (data) {
+                    if (data === "注册成功") {
                         alert("恭喜您注册成功！请前往登录。");
-                        window.location.href="login.html";
+                        window.location.href="http://localhost:8080/login";
                     } else {
                         alert(data);
                         return false;
@@ -66,23 +72,19 @@
     </style>
 </head>
 <body>
-<div id="header">
-    <img class="logo_img" alt="" src="static/img/usst1.jpg">
-    <span class="wel_word">在线学习平台</span>
 
-</div>
-
+<div class="headerpage"></div>
+<div class="OUTSIDE1">
 <div class="login_banner">
 
+    <div id="content">
     <div id="l_content">
         <span class="login_word">欢迎注册</span>
     </div>
-
-    <div id="content">
         <div class="login_form">
             <div class="login_box">
                 <div class="tit">
-                    <h1>上理工会员</h1>
+                    <h1>书云网会员</h1>
                     <span class="errorMsg"></span>
                 </div>
                 <div class="form">
@@ -109,7 +111,7 @@
                         <br/>
                         <label>验证码：</label>
                         <input class="itxt" type="text" style="width: 150px;" id="code" name="code"/>
-                        <img alt="" src="static/img/code.bmp" style="float: right; margin-right: 40px">
+                        <img alt="正在加载" src="img/code.bmp" style="float: right; margin-right: 40px">
                         <br/>
                         <br/>
                         <input type="button" value="注册" id="sub_btn"/>
@@ -119,10 +121,10 @@
             </div>
         </div>
     </div>
-</div>
+</div></div>
 <div id="bottom">
 		<span>
-			在线学习平台.Copyright &copy;2022
+			书云网平台.Copyright &copy;2022
 		</span>
 </div>
 </body>
