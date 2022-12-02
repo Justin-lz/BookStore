@@ -43,10 +43,13 @@
                 str+=`</b></p></div>`
                 let bookJson = JSON.parse(data);
                 if (bookJson.length===0) {
-                    alert("没有更多书籍,返回上一级");
-                    page = document.getElementById("page").innerHTML;
-                    history.back()
-                    return true;
+                    document.getElementById("messageBoard").innerHTML=" <p>开卷有益！</p>";
+                    document.getElementById("book").innerHTML="<p>书库正在积极备货中！2s后返回主页面</p>";
+
+                        page= document.getElementById("page").innerHTML;
+                    alert("没有更多书籍!");
+                    window.location.href = "http://localhost:8080";
+                    return false;
                 } else {
 
                     bookJson.forEach((item) => {
@@ -80,6 +83,7 @@
 
                     });
                     str+=`<div style="clear:both "></div>`;
+                    if(type==null )document.getElementById("messageBoard").innerHTML=" <p>开卷有益！</p>";
                     document.getElementById("book").innerHTML = str;
                     return false;
 
@@ -161,11 +165,10 @@
             </td>
 
 
-
-            <td width="90%">
+            <td width="75%">
                 <div class="OUTSIDE">
                     <div id="book">
-                        <div align="center"><p><b>热门图书随机推荐</b></p></div>
+                        <!--<div align="center"><p><b>热门图书随机推荐</b></p></div>
 
                         <div class="b_list" name="book1">
                             <div class="img_div">
@@ -353,14 +356,39 @@
                             </div>
                         </div>`
 
-                        <div style="clear:both "></div>
+                        <div style="clear:both "></div>-->
                     </div>
                     <div style="clear:both "></div>
                 </div>
 
             </td>
 
+            <td width="15%" valign="top">
+                <div class="OUTSIDE">
+                    <div id="messageBoard">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td id="messageblock">
 
+                                <p align="center"><b>标签说明</b></p><br>
+
+                                <div class="messageBlock">
+
+                                    <div white-space="pre-wrap" with="100px" th:text="${message1Mword}" class="white">
+                                        试写文字阿斯顿法定撒旦发射点好3和把123禄晗vjig31可把看23就v3;1312v1232素数带和
+                                    </div>
+                                    <br>
+                                </div>
+
+
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                    <br>
+                </div>
+            </td>
 
 
 
