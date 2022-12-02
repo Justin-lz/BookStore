@@ -44,9 +44,9 @@ public class ViewController {
 
     @GetMapping(value = "login")
     @ApiOperation(value = "登录跳转")
-    public String login(){return "";}
+    public String login(){return "login.html";}
 
     @GetMapping(value = "register")
     @ApiOperation(value = "注册跳转")
-    public String register(){return "";}
+    public String register(){return "register.html";}
 }
