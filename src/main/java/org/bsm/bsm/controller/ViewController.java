@@ -1,6 +1,5 @@
 package org.bsm.bsm.controller;
 
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.bsm.bsm.util.SessionAttributeUtil;
@@ -8,10 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
@@ -53,7 +49,7 @@ public class ViewController {
 
     @GetMapping(value = "person")
     @ApiOperation(value = "个人信息跳转",notes = "检查是否登录，未登录进行跳转登录")
-    public String person(HttpServletRequest request, HttpServletResponse response){
+    public String person(HttpServletRequest request){
         if (request.getSession().getAttribute(SessionAttributeUtil.getUserInfo())==null) {
             return "redirect:/login";
         }else

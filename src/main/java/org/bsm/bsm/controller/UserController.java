@@ -82,7 +82,27 @@ public class UserController {
         }else return "用户名重复";
     }
 
-
+    @PostMapping("update")
+    @ApiOperation(value = "用户信息修改", notes = "修改成功返回‘修改成功’，修改失败返回失败原因,字符串是否空以判断")
+    @ApiImplicitParams({@ApiImplicitParam(name = "Ubirth", dataTypeClass = String.class, value = "生日", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "Usex", dataTypeClass = String.class, value = "性别", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "Uphone", dataTypeClass = String.class, value = "手机号", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "Uaddress", dataTypeClass = String.class, value = "地址", required = true, paramType = "query")})
+    public String updateUser(HttpServletRequest request,@RequestParam String Ubirth,@RequestParam String Usex,@RequestParam String Uaddress,@RequestParam String Uphone){
+        HttpSession session =request.getSession();
+        UserInfo userInfo =(UserInfo) session.getAttribute(SessionAttributeUtil.getUserInfo());
+        if (userInfo==null) {
+            return "未登录";
+        }else {
+            UserInfo userInfoNew = userServiceIml.updateUser( userInfo.getUid(), Ubirth,Usex,Uaddress,Uphone);
+            if (userInfoNew==null){
+                return "修改失败，可能是数据格式原因";
+            }else {
+                session.setAttribute(SessionAttributeUtil.getUserInfo(),userInfo);
+                return "修改成功";
+            }
+        }
+    }
 
 
 

@@ -36,5 +36,23 @@ public class UserServiceIml implements UserService{
         return userPassMapper.registerUserPass(userPass);
     }
 
+    @Override
+    public UserInfo updateUser( Integer Uid, String Ubirth, String Usex, String Uaddress, String Uphone) {
 
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUaddress(Uaddress);
+        userInfo.setUid(Uid);
+        userInfo.setUphone(Uphone);
+        userInfo.setUbirth(Ubirth);
+        userInfo.setUsex(Usex);
+        try {
+            userInfoMapper.updateUserInfo(userInfo);
+
+            return userInfo;
+        }catch (Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+
+    }
 }
