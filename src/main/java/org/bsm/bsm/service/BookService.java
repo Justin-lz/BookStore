@@ -7,4 +7,5 @@ public interface BookService {
     List<Book> queryBook(Integer page, String str, String type);
     List<Book> queryHomeBook();
     Integer insertBook(Book book);
+    Book queryOneBookWithType(String Bid);
 }

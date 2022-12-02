@@ -28,4 +28,7 @@ public interface BookMapper {
 
     @Select("Select * from bsm.book order by rand() limit 6;")
     List<Book> queryHomeBook();
+
+    @Select("SELECT * FROM bsm.book_type where Bid =#{Bid};")
+    Book queryOneBookWithType(String Bid);
 }

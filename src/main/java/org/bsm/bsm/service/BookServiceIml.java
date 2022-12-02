@@ -36,4 +36,8 @@ public class BookServiceIml implements BookService{
     public List<Book> queryHomeBook() {
         return bookMapper.queryHomeBook();
     }
+    @Override
+    public Book queryOneBookWithType(String Bid){
+        return bookMapper.queryOneBookWithType(Bid);
+    }
 }

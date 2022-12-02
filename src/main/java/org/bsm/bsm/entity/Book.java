@@ -11,6 +11,8 @@ public class Book {
     private String Bresume;
     private Integer Tid;
 
+    private String Tname;
+
     public Integer getBid() {
         return Bid;
     }
@@ -73,6 +75,15 @@ public class Book {
 
     public void setTid(Integer tid) {
         Tid = tid;
+    }
+
+
+    public String getTname() {
+        return Tname;
+    }
+
+    public void setTname(String tname) {
+        Tname = tname;
     }
 
     @Override

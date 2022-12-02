@@ -3,6 +3,7 @@ package org.bsm.bsm.controller;
 
 import com.google.gson.GsonBuilder;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.bsm.bsm.entity.Book;
 import org.bsm.bsm.service.BookServiceIml;
@@ -44,6 +45,11 @@ public class BookController {
     @GetMapping("home")
     @ApiOperation("返回主页图书")
     public String getBookHome(){ return new GsonBuilder().create().toJson(bookServiceIml.queryHomeBook()); }
+
+    @GetMapping("book")
+    @ApiOperation("返回具体页面图书")
+    @ApiImplicitParam(name = "Bid",value = "书籍编号",dataTypeClass = String.class,required = true)
+    public String getBookHome(@RequestParam("Bid")String Bid){ return new GsonBuilder().create().toJson(bookServiceIml.queryOneBookWithType(Bid)); }
 
 
 }
