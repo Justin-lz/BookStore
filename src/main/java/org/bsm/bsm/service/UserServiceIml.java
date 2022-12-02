@@ -23,8 +23,17 @@ public class UserServiceIml implements UserService{
         else {
             return userInfoMapper.getUserInfo(userPassGet.getUid());
         }
+    }
 
+    @Override
+    public boolean checkUnique(UserPass userPass) {
+        UserPass userPassGet = userPassMapper.checkUserUnique(userPass);
+        return userPassGet == null; //判断用户是否存在
+    }
 
+    @Override
+    public Integer newUser(UserPass userPass) {
+        return userPassMapper.registerUserPass(userPass);
     }
 
 

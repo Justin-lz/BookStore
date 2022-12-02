@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @PostMapping("login")
-    @ApiOperation("用户登录")
+    @ApiOperation(value = "用户登录",notes = "登录成功返回登录成功，登录失败返回用户名或密码错误")
     @ApiImplicitParams({@ApiImplicitParam(name = "Uname", dataTypeClass = String.class, value = "用户名", required = true, paramType = "query"),
             @ApiImplicitParam(name = "UPword", dataTypeClass = String.class, value = "密码", required = true, paramType = "query")})
     public String login(@RequestParam("Uname")String Uname, @RequestParam("UPword")String UPword, HttpServletRequest request){
@@ -61,6 +61,28 @@ public class UserController {
             return "登录成功";
         }
     }
+
+    @PostMapping("register")
+    @ApiOperation(value = "用户注册", notes = "注册成功返回‘注册成功’，注册失败返回失败原因,字符串是否空以判断")
+    @ApiImplicitParams({@ApiImplicitParam(name = "Uname", dataTypeClass = String.class, value = "用户名", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "UPword", dataTypeClass = String.class, value = "密码", required = true, paramType = "query")})
+    public String register(@RequestParam("Uname")String Uname, @RequestParam("UPword")String UPword){
+
+        if (UPword==null ||"".equals(UPword)) return "密码为空";
+        if (Uname==null ||"".equals(Uname)) return "用户名为空";
+
+        UserPass userPass = new UserPass();
+        userPass.setUname(Uname);
+        userPass.setUPword(UPword);
+        if (userServiceIml.checkUnique(userPass)){
+            if (userServiceIml.newUser(userPass)==1)
+                return "注册成功";
+            else
+                return "未知错误，注册失败";
+        }else return "用户名重复";
+    }
+
+
 
 
 

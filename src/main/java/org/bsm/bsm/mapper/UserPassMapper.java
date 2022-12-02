@@ -13,4 +13,6 @@ public interface UserPassMapper {
     @Insert("INSERT INTO bsm.user_log_in (`UPword`, `Uname`) VALUES (#{UPword},#{Uname});")
     Integer registerUserPass(UserPass userPass);
 
+    @Select("SELECT * FROM bsm.user_log_in  where (Uname = #{Uname});")
+    UserPass checkUserUnique(UserPass userPass);
 }

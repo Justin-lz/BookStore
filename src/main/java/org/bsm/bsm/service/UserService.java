@@ -8,4 +8,8 @@ public interface UserService {
 
     public UserInfo login(UserPass userPass);
 
+    public boolean checkUnique(UserPass userPass);
+
+    public Integer newUser(UserPass userPass);
+
 }
