@@ -12,7 +12,7 @@ public interface TypeMapper {
     @Select("SELECT * FROM bsm.type;")
     public List<Type> getAllType();
 
-    @Insert("INSERT INTO bsm.typ` (`Tname`, `Tresume`) VALUES (#{Tname}, #{Tresume});")
+    @Insert("INSERT INTO bsm.type (`Tname`, `Tresume`) VALUES (#{Tname}, #{Tresume});")
     public Integer newType(Type type);
 
 
