@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+@RequestMapping("/BSM/address")
 @Api(tags = "地址信息操作接口")
 public class AddressController {
 
