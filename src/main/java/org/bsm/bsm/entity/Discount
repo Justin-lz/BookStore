@@ -6,7 +6,7 @@ public class Discount{
     private Integer Did;
     private Date start;
     private Date end;
-    private Float Dcount;
+    private Integer Dcount;
     private Float Dprice;
     private Float Ddis;
     private Float Ddec;
