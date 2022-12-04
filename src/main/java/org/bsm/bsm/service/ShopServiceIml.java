@@ -14,6 +14,7 @@ public class ShopServiceIml{
     @Autowired
     private ShopMapper shopMapper;
 
+    @Override
     public Integer addShop(Integer Uid,Integer Bid,Integer Scount){
         Shop shop = new Shop();
         shop.setUid(Uid);
@@ -26,6 +27,11 @@ public class ShopServiceIml{
             shop.setScount(Scount+checkUidBid.Scount);
             return shopMapper.changeShop(shop);
         }  
+    }
+
+    @Override
+    public List<Shop> allShopByUid(String Uid){
+        return shopMapper.allShopByUid(Uid);
     }
 
 

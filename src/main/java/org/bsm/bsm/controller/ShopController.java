@@ -26,8 +26,8 @@ public class ShopController{
     private ShopServiceIml shopServiceIml;
 
     @PostMapping("add")
-    @ApiImplicitParams({@ApiImplicitParam(),
-                        @ApiImplicitParam()})
+    @ApiImplicitParams({@ApiImplicitParam(name = "Bid", value = "书本id", dataTypeClass = String.class, paramType = "query", required = true),
+                        @ApiImplicitParam(name = "Scount", value = "书本数量", dataTypeClass = String.class, paramType = "query", required = true)})
     @ApiOperation(value="将书本添加入购物车", notes = "若书本一再购物车中，则会增加数量,若未登录会直接返回")
     public String addShop(@RequestParam Integer Bid,@RequestParam Integer Scount,HttpServletRequest request){
         UserInfo userInfo = request.getSession.getAttribute(SessionAttributeUtil.getUserInfo);
@@ -36,6 +36,15 @@ public class ShopController{
         }
         shopServiceIml.addShop(userInfo.getUid,Bid,Scount);
         return null;
+    }
+
+    @GetMapping("get")
+    public String getAllShop(){
+        UserInfo userInfo = request.getSession.getAttribute(SessionAttributeUtil.getUserInfo);
+        if (userInfo == null){
+            return "未登录";
+        }
+        return shopServiceIml.getAllShop(UserInfo.getUid);
     }
 
 }
