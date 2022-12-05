@@ -10,10 +10,7 @@ import org.bsm.bsm.entity.Shop;
 import org.bsm.bsm.service.ShopServiceIml;
 import org.bsm.bsm.util.SessionAttributeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,21 +27,21 @@ public class ShopController{
                         @ApiImplicitParam(name = "Scount", value = "书本数量", dataTypeClass = String.class, paramType = "query", required = true)})
     @ApiOperation(value="将书本添加入购物车", notes = "若书本一再购物车中，则会增加数量,若未登录会直接返回")
     public String addShop(@RequestParam Integer Bid,@RequestParam Integer Scount,HttpServletRequest request){
-        UserInfo userInfo = request.getSession.getAttribute(SessionAttributeUtil.getUserInfo);
+        UserInfo userInfo =(UserInfo) request.getSession().getAttribute(SessionAttributeUtil.getUserInfo());
         if (userInfo == null){
             return "未登录";
         }
-        shopServiceIml.addShop(userInfo.getUid,Bid,Scount);
+        shopServiceIml.addShop(userInfo.getUid(),Bid,Scount);
         return null;
     }
 
     @GetMapping("get")
-    public String getAllShop(){
-        UserInfo userInfo = request.getSession.getAttribute(SessionAttributeUtil.getUserInfo);
+    public String getAllShop(HttpServletRequest request){
+        UserInfo userInfo =(UserInfo) request.getSession().getAttribute(SessionAttributeUtil.getUserInfo());
         if (userInfo == null){
             return "未登录";
         }
-        return shopServiceIml.getAllShop(UserInfo.getUid);
+        return new GsonBuilder().create().toJson(shopServiceIml.allShopByUid(userInfo.getUid())) ;
     }
 
 }

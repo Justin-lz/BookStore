@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Service
-public class ShopServiceIml{
+public class ShopServiceIml implements ShopService{
 
     @Autowired
     private ShopMapper shopMapper;
@@ -24,13 +24,13 @@ public class ShopServiceIml{
             shop.setScount(Scount);
             return shopMapper.newShop(shop);
         }else{
-            shop.setScount(Scount+checkUidBid.Scount);
+            shop.setScount(Scount+checkUidBid.getScount());
             return shopMapper.changeShop(shop);
         }  
     }
 
     @Override
-    public List<Shop> allShopByUid(String Uid){
+    public List<Shop> allShopByUid(Integer Uid){
         return shopMapper.allShopByUid(Uid);
     }
 

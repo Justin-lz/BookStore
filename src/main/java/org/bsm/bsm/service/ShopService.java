@@ -8,6 +8,6 @@ public interface ShopService{
 
     Integer addShop(Integer Uid,Integer Bid,Integer Scount);
 
-    List<Shop> allShopByUid(String Uid);
+    List<Shop> allShopByUid(Integer Uid);
 
 }

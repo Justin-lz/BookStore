@@ -55,4 +55,8 @@ public class ViewController {
         }else
             return "person.html";
     }
+
+    @GetMapping(value = "book")
+    @ApiOperation(value = "书本跳转",notes = "用?bid=xxx表示具体是哪本书")
+    public String book() {return "book.html";}
 }

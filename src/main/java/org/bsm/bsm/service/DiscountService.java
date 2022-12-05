@@ -10,4 +10,6 @@ public interface DiscountService{
     
     public List<Discount> getAll();
 
+    public Discount getUse();
+
 }

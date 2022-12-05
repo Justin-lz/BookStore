@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Service
-public class DiscountServiceIml{
+public class DiscountServiceIml implements DiscountService{
 
     @Autowired
     private DiscountMapper discountMapper;
@@ -24,4 +24,6 @@ public class DiscountServiceIml{
         return discountMapper.insertDiscount(discount);
     }
 
+
+    public Discount getUse(){ return  discountMapper.getUse();}
 }
