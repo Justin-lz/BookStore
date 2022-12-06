@@ -5,6 +5,8 @@ public class SessionAttributeUtil {
     static String SearchType ="type"; //存储当前搜索的类型选项
     static String SearchString = "str"; //存储当前搜索的字符串
 
+    static String manager="manager";
+
     public static String getSearchString() {
         return SearchString;
     }
@@ -17,4 +19,7 @@ public class SessionAttributeUtil {
         return SearchType;
     }
 
+    public static String getManager() {
+        return manager;
+    }
 }

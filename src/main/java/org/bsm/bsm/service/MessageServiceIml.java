@@ -1,5 +1,6 @@
 package org.bsm.bsm.service;
 
+import org.apache.ibatis.annotations.Param;
 import org.bsm.bsm.entity.Message;
 import org.bsm.bsm.mapper.MessageShowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,9 @@ public class MessageServiceIml implements MessageService{
         return messageShowMapper.newMessage(message);
     }
 
+    public Integer checkMessageManager(Integer Mid){return messageShowMapper.checkMessageManager(Mid);}
+    public List<Message> getMessagePageManager(@Param("page") Integer page){return messageShowMapper.getMessagePageManager(page);}
+
+    public Integer deleteMessageManager(Integer Mid){return messageShowMapper.deleteMessageManager(Mid);}
 
 }
