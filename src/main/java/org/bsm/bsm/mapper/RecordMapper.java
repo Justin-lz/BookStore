@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.bsm.bsm.entity.Record;
 
+import java.util.List;
+
 @Mapper
 public interface RecordMapper {
 
@@ -14,5 +16,8 @@ public interface RecordMapper {
 
     @Select("Select * from bsm.record where (Uid = #{Uid}) order by Rtime desc limit 1 ")
     Record getRecord(Record record);
+
+    @Select("Select * from bsm.record where (Rid = #{Rid})")
+    List<Record> getRecordByUid(Integer Uid);
 
 }

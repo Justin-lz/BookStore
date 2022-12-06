@@ -6,6 +6,16 @@ public class History {
     private Integer Bid;
     private Integer count;
 
+    private String Bname;
+
+    public String getBname() {
+        return Bname;
+    }
+
+    public void setBname(String bname) {
+        Bname = bname;
+    }
+
     public Integer getRid() {
         return Rid;
     }

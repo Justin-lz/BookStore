@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.bsm.bsm.entity.Record;
 
+import java.util.List;
+
 
 @Service
 public class RecordServiceIml implements RecordService {
@@ -34,5 +36,14 @@ public class RecordServiceIml implements RecordService {
         }
 
         return 1;
+    }
+
+    @Override
+    public List<Record> getRecordByUid(Integer Uid) {
+        List<Record> records = recordMapper.getRecordByUid(Uid);
+        for (Record record:records){
+            record.setHistories(historyMapper.getHistoryByRid(record.getRid()));
+        }
+        return records;
     }
 }

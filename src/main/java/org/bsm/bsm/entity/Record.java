@@ -2,6 +2,7 @@ package org.bsm.bsm.entity;
 
 
 import java.util.Date;
+import java.util.List;
 
 public class Record {
     private Integer Rid;
@@ -14,6 +15,16 @@ public class Record {
     private String Rreceive;
 
     private String Rdiscount;
+
+    private List<History> histories;
+
+    public List<History> getHistories() {
+        return histories;
+    }
+
+    public void setHistories(List<History> histories) {
+        this.histories = histories;
+    }
 
     public Integer getRid() {
         return Rid;

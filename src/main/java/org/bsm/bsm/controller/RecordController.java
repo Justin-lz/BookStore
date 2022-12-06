@@ -1,5 +1,6 @@
 package org.bsm.bsm.controller;
 
+import com.google.gson.GsonBuilder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -9,10 +10,7 @@ import org.bsm.bsm.entity.UserInfo;
 import org.bsm.bsm.service.RecordServiceIml;
 import org.bsm.bsm.util.SessionAttributeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -55,6 +53,16 @@ public class RecordController {
             return e.toString();
         }
         return null;
+    }
+
+    @GetMapping("getByUid")
+    @ApiOperation(value = "获取用户所有订单",notes = "如未登录会返回请登录")
+    public String getRecordByUid(HttpServletRequest request){
+        UserInfo userInfo =(UserInfo) request.getSession().getAttribute(SessionAttributeUtil.getUserInfo());
+        if (userInfo==null){
+            return "未登录";
+        }
+        return new GsonBuilder().setDateFormat("yyyy年MM月dd日 HH:mm:ss").create().toJson(recordServiceIml.getRecordByUid(userInfo.getUid()));
     }
 
 }

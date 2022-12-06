@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.bsm.bsm.entity.UserInfo;
-import org.bsm.bsm.entity.Shop;
 import org.bsm.bsm.service.ShopServiceIml;
 import org.bsm.bsm.util.SessionAttributeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
