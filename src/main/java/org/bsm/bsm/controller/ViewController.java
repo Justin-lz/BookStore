@@ -6,10 +6,8 @@ import org.bsm.bsm.service.BookServiceIml;
 import org.bsm.bsm.util.SessionAttributeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -61,10 +59,10 @@ public class ViewController {
             return "person.html";
     }
 
-    @GetMapping(value = "book/{bid}")
+    @GetMapping(value = "Book")
     @ApiOperation(value = "书本跳转",notes = "用/xxx表示具体是哪本书的bid,已主动判断是否存在")
-    public String book(@PathVariable String bid) {
-        if (bookServiceIml.queryOneBookWithType(bid)==null)
+    public String book(@RequestParam String Bid) {
+        if (bookServiceIml.queryOneBookWithType(Bid)==null)
             return "error.html";
         else
             return "book.html";
@@ -80,7 +78,7 @@ public class ViewController {
     }
 
     @GetMapping(value = "history")
-    @ApiOperation(value = "购物车跳转",notes="检查是否登录，未登录进行跳转登录")
+    @ApiOperation(value = "历史订单跳转",notes="检查是否登录，未登录进行跳转登录")
     public String history(HttpServletRequest request){
         if (request.getSession().getAttribute(SessionAttributeUtil.getUserInfo())==null) {
             return "redirect:/login";
