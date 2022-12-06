@@ -10,4 +10,8 @@ public interface ShopService{
 
     List<Shop> allShopByUid(Integer Uid);
 
+    Integer updateShop(Integer Uid,Integer Bid,Integer Scount);
+
+    Integer deleteShop(Integer Uid,Integer Bid);
+
 }

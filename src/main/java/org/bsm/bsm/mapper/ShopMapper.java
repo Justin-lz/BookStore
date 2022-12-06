@@ -1,9 +1,6 @@
 package org.bsm.bsm.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.bsm.bsm.entity.Shop;
 
 import java.util.List;
@@ -23,5 +20,8 @@ public interface ShopMapper{
 
     @Update("Update bsm.shop set Scount = #{Scount} where (Uid = #{Uid} and Bid = #{Bid})")
     public Integer changeShop(Shop shop);
+
+    @Delete("Delete from bsm.shop where (Uid = #{Uid} and Bid = #{Bid})")
+    public Integer deleteShop(Shop shop);
 
 }

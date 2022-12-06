@@ -4,7 +4,6 @@ import org.bsm.bsm.entity.Shop;
 import org.bsm.bsm.mapper.ShopMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -32,6 +31,22 @@ public class ShopServiceIml implements ShopService{
     @Override
     public List<Shop> allShopByUid(Integer Uid){
         return shopMapper.allShopByUid(Uid);
+    }
+    @Override
+    public Integer updateShop(Integer Uid,Integer Bid,Integer Scount){
+        Shop shop = new Shop();
+        shop.setUid(Uid);
+        shop.setBid(Bid);
+        shop.setScount(Scount);
+        return shopMapper.changeShop(shop);
+    }
+
+    @Override
+    public Integer deleteShop(Integer Uid,Integer Bid){
+        Shop shop = new Shop();
+        shop.setUid(Uid);
+        shop.setBid(Bid);
+        return shopMapper.deleteShop(shop);
     }
 
 

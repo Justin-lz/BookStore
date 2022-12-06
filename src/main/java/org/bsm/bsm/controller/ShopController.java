@@ -45,4 +45,28 @@ public class ShopController{
         return new GsonBuilder().create().toJson(shopServiceIml.allShopByUid(userInfo.getUid())) ;
     }
 
+    @PostMapping("update")
+    @ApiImplicitParams({@ApiImplicitParam(name = "Bid", value = "书本id", dataTypeClass = String.class, paramType = "query", required = true),
+            @ApiImplicitParam(name = "Scount", value = "书本数量", dataTypeClass = String.class, paramType = "query", required = true)})
+    @ApiOperation(value="修改购物车数量", notes = "若未登录会直接返回")
+    public String updateShop(@RequestParam Integer Bid,@RequestParam Integer Scount,HttpServletRequest request){
+        UserInfo userInfo =(UserInfo) request.getSession().getAttribute(SessionAttributeUtil.getUserInfo());
+        if (userInfo == null){
+            return "未登录";
+        }
+        shopServiceIml.updateShop(userInfo.getUid(),Bid,Scount);
+        return null;
+    }
+
+    @PostMapping("delete")
+    @ApiImplicitParams({@ApiImplicitParam(name = "Bid", value = "书本id", dataTypeClass = String.class, paramType = "query", required = true)})
+    @ApiOperation(value="删除购物车", notes = "若未登录会直接返回")
+    public String deleteShop(@RequestParam Integer Bid,HttpServletRequest request){
+        UserInfo userInfo =(UserInfo) request.getSession().getAttribute(SessionAttributeUtil.getUserInfo());
+        if (userInfo == null){
+            return "未登录";
+        }
+        shopServiceIml.deleteShop(userInfo.getUid(),Bid);
+        return null;
+    }
 }
