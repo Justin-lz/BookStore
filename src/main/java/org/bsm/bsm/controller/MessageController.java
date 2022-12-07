@@ -52,7 +52,7 @@ public class MessageController {
     }
 
     @GetMapping("pageManager")
-    @ApiOperation(value = "根据页码获取留言板内容",notes = "一页六条留言")
+    @ApiOperation(value = "根据页码获取留言板待审核内容",notes = "一页六条留言")
     @ApiImplicitParam(name = "page", value = "第page页留言",dataTypeClass = Integer.class)
     public String getPageManager(@RequestParam Integer page,HttpServletRequest request){
        Manager manager=(Manager) request.getSession().getAttribute(SessionAttributeUtil.getManager());

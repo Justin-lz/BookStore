@@ -1,5 +1,6 @@
 package org.bsm.bsm.controller;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+@Api(tags = "管理员相关接口")
 public class ManagerController {
     @Autowired
     private ManagerMapper managerMapper;

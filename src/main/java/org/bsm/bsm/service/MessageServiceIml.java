@@ -35,7 +35,7 @@ public class MessageServiceIml implements MessageService{
     }
 
     public Integer checkMessageManager(Integer Mid){return messageShowMapper.checkMessageManager(Mid);}
-    public List<Message> getMessagePageManager(@Param("page") Integer page){return messageShowMapper.getMessagePageManager(page);}
+    public List<Message> getMessagePageManager(@Param("page") Integer page){return messageShowMapper.getMessagePageManager((page-1)*6);}
 
     public Integer deleteMessageManager(Integer Mid){return messageShowMapper.deleteMessageManager(Mid);}
 
