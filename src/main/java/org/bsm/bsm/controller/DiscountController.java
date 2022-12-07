@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
 import org.bsm.bsm.entity.Discount;
+import org.bsm.bsm.entity.Manager;
 import org.bsm.bsm.entity.UserInfo;
 import org.bsm.bsm.service.DiscountService;
 import org.bsm.bsm.service.DiscountServiceIml;
@@ -42,6 +43,10 @@ public class DiscountController{
     @PostMapping("newDiscount")
     @ApiOperation(value = "新增折扣",notes = "成功返还null")
     public String newDiscount(@RequestParam Float Ddec, @RequestParam Float Ddis, @RequestParam Integer Dcount, @RequestParam Float Dprice, @RequestParam String Dstart, @RequestParam String Dend, HttpServletRequest request){
+        Manager manager=(Manager) request.getSession().getAttribute(SessionAttributeUtil.getManager());
+        if (manager==null){
+            return "未登录，请登录";
+        }
         Discount discount = new Discount();
         SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         discount.setDcount(Dcount);
@@ -55,6 +60,41 @@ public class DiscountController{
             return e.toString();
         }
         discountServiceIml.insertDiscount(discount);
+        return null;
+    }
+
+    @PostMapping("updateDiscount")
+    @ApiOperation(value = "新增折扣",notes = "成功返还null")
+    public String updateDiscount(@RequestParam Integer Did, @RequestParam Float Ddec, @RequestParam Float Ddis, @RequestParam Integer Dcount, @RequestParam Float Dprice, @RequestParam String Dstart, @RequestParam String Dend, HttpServletRequest request){
+        Manager manager=(Manager) request.getSession().getAttribute(SessionAttributeUtil.getManager());
+        if (manager==null){
+            return "未登录，请登录";
+        }
+        Discount discount = new Discount();
+        discount.setDid(Did);
+        discount.setDcount(Dcount);
+        discount.setDdec(Ddec);
+        discount.setDdis(Ddis);
+        discount.setDprice(Dprice);
+        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            discount.setDStart(sdf.parse(Dstart));
+            discount.setDEnd(sdf.parse(Dend));
+        }catch (Exception e){
+            return e.toString();
+        }
+        discountServiceIml.updateDiscount(discount);
+        return null;
+    }
+
+    @PostMapping("updateDiscount")
+    @ApiOperation(value = "新增折扣",notes = "成功返还null")
+    public String updateDiscount(@RequestParam Integer Did, HttpServletRequest request){
+        Manager manager=(Manager) request.getSession().getAttribute(SessionAttributeUtil.getManager());
+        if (manager==null){
+            return "未登录，请登录";
+        }
+        discountServiceIml.deleteDiscount(Did);
         return null;
     }
 

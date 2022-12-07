@@ -12,4 +12,7 @@ public interface DiscountService{
 
     public Discount getUse();
 
+    Integer updateDiscount(Discount discount);
+
+    Integer deleteDiscount(Integer Did);
 }

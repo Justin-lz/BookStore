@@ -26,4 +26,14 @@ public class DiscountServiceIml implements DiscountService{
 
 
     public Discount getUse(){ return  discountMapper.getUse();}
+
+    @Override
+    public Integer updateDiscount(Discount discount) {
+        return discountMapper.updateDiscount(discount);
+    }
+
+    @Override
+    public Integer deleteDiscount(Integer Did) {
+        return discountMapper.deleteDiscount(Did);
+    }
 }
