@@ -40,4 +40,14 @@ public class BookServiceIml implements BookService{
     public Book queryOneBookWithType(String Bid){
         return bookMapper.queryOneBookWithType(Bid);
     }
+
+    @Override
+    public Integer updateBook(Book book) {
+        return bookMapper.updateBook(book);
+    }
+
+    @Override
+    public Integer deleteBook(Integer Bid) {
+        return bookMapper.deleteBook(Bid);
+    }
 }
