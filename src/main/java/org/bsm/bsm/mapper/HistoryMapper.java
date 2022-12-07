@@ -1,5 +1,6 @@
 package org.bsm.bsm.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -15,5 +16,8 @@ public interface HistoryMapper {
 
     @Select("Select * from bsm.history_book where Rid = #{Rid}")
     List<History> getHistoryByRid(Integer Rid);
+
+    @Delete("Delete from bsm.history where Rid = #{Rid}")
+    Integer deleteHistory(Integer Rid);
 
 }

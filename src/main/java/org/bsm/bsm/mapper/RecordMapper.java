@@ -1,9 +1,8 @@
 package org.bsm.bsm.mapper;
 
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import io.swagger.models.auth.In;
+import org.apache.ibatis.annotations.*;
 import org.bsm.bsm.entity.Record;
 
 import java.util.List;
@@ -19,5 +18,17 @@ public interface RecordMapper {
 
     @Select("Select * from bsm.record where (Rid = #{Rid})")
     List<Record> getRecordByUid(Integer Uid);
+
+    @Select("Select * from bsm.record where Rcheck = 'no' or Rdeliever ='no'")
+    List<Record> getRecordNeedCheckByManager();
+
+    @Update("Update bsm.record set Rcheck = 'yes' where Rid = #{Rid}")
+    Integer checkRecordByManager(Integer Rid);
+
+    @Update("Update bsm.record set Rdeliever = 'yes' where Rid = #{Rid}")
+    Integer deliverRecordByManager(Integer Rid);
+
+    @Delete("delete from bsm.record where Rid =#{Rid}")
+    Integer deleteRecordByManager(Integer Rid);
 
 }

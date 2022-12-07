@@ -28,3 +28,14 @@ SELECT
 FROM
     (`history`
         LEFT JOIN `book` ON ((`history`.`Bid` = `book`.`Bid`)));
+
+DROP TRIGGER IF EXISTS `bsm`.`history_AFTER_DELETE`;
+
+DELIMITER $$
+USE `bsm`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `bsm`.`history_AFTER_DELETE` AFTER DELETE ON `history` FOR EACH ROW
+BEGIN
+    update bsm.book set Bcount = Bcount + old.count where Bid = old.Bid;
+END$$
+DELIMITER ;
+

@@ -1,5 +1,6 @@
 package org.bsm.bsm.service;
 
+
 import org.bsm.bsm.entity.History;
 import org.bsm.bsm.mapper.HistoryMapper;
 import org.bsm.bsm.mapper.RecordMapper;
@@ -45,5 +46,32 @@ public class RecordServiceIml implements RecordService {
             record.setHistories(historyMapper.getHistoryByRid(record.getRid()));
         }
         return records;
+    }
+
+    @Override
+    public List<Record> getRecordNeedCheckByManager() {
+        List<Record> records = recordMapper.getRecordNeedCheckByManager();
+        for (Record record:records){
+            record.setHistories(historyMapper.getHistoryByRid(record.getRid()));
+        }
+        return records;
+    }
+
+    @Override
+    public Integer checkRecordByManager(Integer Rid) {
+        return recordMapper.checkRecordByManager(Rid);
+    }
+
+    @Override
+    public Integer deliverRecordByManager(Integer Rid) {
+        return recordMapper.deliverRecordByManager(Rid);
+    }
+
+    @Override
+    @Transactional
+    public Integer deleteRecordByManager(Integer Rid) {
+        Integer integer = historyMapper.deleteHistory(Rid);
+        recordMapper.deleteRecordByManager(Rid);
+        return integer;
     }
 }

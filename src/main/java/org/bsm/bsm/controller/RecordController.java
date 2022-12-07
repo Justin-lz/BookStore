@@ -5,6 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.bsm.bsm.entity.Manager;
 import org.bsm.bsm.entity.Record;
 import org.bsm.bsm.entity.UserInfo;
 import org.bsm.bsm.service.RecordServiceIml;
@@ -63,6 +64,49 @@ public class RecordController {
             return "未登录";
         }
         return new GsonBuilder().setDateFormat("yyyy年MM月dd日 HH:mm:ss").create().toJson(recordServiceIml.getRecordByUid(userInfo.getUid()));
+    }
+
+    @GetMapping("getByManager")
+    @ApiOperation(value = "获取所有待审核发货订单",notes = "如非管理员会返回请登录")
+    public String getRecordNeedCheckByManager(HttpServletRequest request){
+        Manager manager = (Manager) request.getSession().getAttribute(SessionAttributeUtil.getManager());
+        if (manager==null) {
+            return "未登录";
+        }
+        return new GsonBuilder().setDateFormat("yyyy年MM月dd日 HH:mm:ss").create().toJson(recordServiceIml.getRecordNeedCheckByManager());
+    }
+
+    @PostMapping("checkByManager")
+    @ApiOperation(value = "审核通过订单",notes = "如非管理员会返回请登录")
+    @ApiImplicitParam(name = "Rid",value = "订单编号",required = true,dataTypeClass = Integer.class)
+    public String checkRecordByManager(HttpServletRequest request,@RequestParam Integer Rid){
+        Manager manager = (Manager) request.getSession().getAttribute(SessionAttributeUtil.getManager());
+        if (manager==null) {
+            return "未登录";
+        }
+        return new GsonBuilder().setDateFormat("yyyy年MM月dd日 HH:mm:ss").create().toJson(recordServiceIml.checkRecordByManager(Rid));
+    }
+
+    @PostMapping("deliverByManager")
+    @ApiOperation(value = "发货订单",notes = "如非管理员会返回请登录")
+    @ApiImplicitParam(name = "Rid",value = "订单编号",required = true,dataTypeClass = Integer.class)
+    public String deliverRecordByManager(HttpServletRequest request,@RequestParam Integer Rid){
+        Manager manager = (Manager) request.getSession().getAttribute(SessionAttributeUtil.getManager());
+        if (manager==null) {
+            return "未登录";
+        }
+        return new GsonBuilder().setDateFormat("yyyy年MM月dd日 HH:mm:ss").create().toJson(recordServiceIml.deleteRecordByManager(Rid));
+    }
+
+    @PostMapping("deleterByManager")
+    @ApiOperation(value = "删除订单",notes = "如非管理员会返回请登录,会同时返回删除的历史记录数量，修改库存数量")
+    @ApiImplicitParam(name = "Rid",value = "订单编号",required = true,dataTypeClass = Integer.class)
+    public String deleteRecordByManager(HttpServletRequest request,@RequestParam Integer Rid){
+        Manager manager = (Manager) request.getSession().getAttribute(SessionAttributeUtil.getManager());
+        if (manager==null) {
+            return "未登录";
+        }
+        return new GsonBuilder().setDateFormat("yyyy年MM月dd日 HH:mm:ss").create().toJson(recordServiceIml.deleteRecordByManager(Rid));
     }
 
 }
