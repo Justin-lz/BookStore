@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>图书销售管理系统-个人中心</title>
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-3.6.1.js"></script>
+    <script type="text/javascript" src="script/jquery-1.7.2.js"></script>
+    <script>
+
+
+        $(function () {
+            $(".headerpage").load("html/header.html");
+            $(".footerpage").load("html/footer.html");
+
+
+            $.get(urltype, function (data) {
+
+                if (data === "true") {
+                    window.location.href = "context.html";
+                    return true;
+                } else {
+                    let str = '';
+                    typeJson = JSON.parse(data);
+                    getSearchBooks();
+                    typeJson.forEach((item) => {
+                        str += `<li class="typeHref" ><a href="http://localhost:8080/search?type=${item.Tid}">${item.Tname}</a><br></li><br>`;
+
+                    });
+                    document.getElementById("typeClass").innerHTML = str;
+
+                    return false;
+
+                }
+            });
+
+
+        });
+
+
+        /*图书书名查询*/
+
+    </script>
+</head>
+<body id="body">
+
+<div class="headerpage"></div>
+
+
+<div id="main">
+
+    <table class="content_tb" cellpadding="0" cellspacing="0">
+        <tr style="height: 300px">
+
+            <td valign="top" align="center" width="50%" bgcolor="aqua">
+                <br>
+                <h1>个人信息</h1>
+                <table style="margin-top: 20px">
+                    <tr>
+                        <td>
+                            <p> 用户名：</p>
+                        </td>
+
+                        <td>
+                            <p id="username">A</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p> 生日： </p>
+                        </td>
+
+                        <td>
+                            <input type="date" id="birth">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p> 性别：</p>
+                        </td>
+
+                        <td>
+                            <input type="text" id="sex">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p> 默认地址：</p>
+                        </td>
+
+                        <td>
+                            <input type="text" id="address">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>电话号码： </p>
+                        </td>
+
+                        <td>
+                            <input type="number" id="phone">
+                        </td>
+                    </tr>
+
+                </table>
+                <div style="float: right;margin-right:100px;"><input type="button" id="modify" value="修改"></div>
+            </td>
+
+            <td align="center" valign="top" width="50%" bgcolor="red">
+                <br>
+                <h1>收货地址</h1>
+                <br>
+                <ul id="add">
+                    <li style="margin: 3px">军工路516</li>
+                    <li style="margin: 3px">张三</li>
+                    <li style="margin: 3px">188</li>
+                </ul>
+
+            </td>
+
+        </tr>
+
+        <tr style="height: 150px">
+
+            <td width="50%" bgcolor="blue">
+
+
+            </td>
+
+            <td width="50%" bgcolor="#9932cc">
+
+                <div style="padding: 15px">收货地址：<input type="text"><br></div>
+               <div style="padding-left: 31px">收件人：<input type="text"><br></div>
+                <div style="padding: 15px">联系电话：<input type="number"></div>
+
+                <div style="float: right;padding-right: 270px;">
+                    <input type="button" id="bt_newadd" value="添加">
+                </div>
+            </td>
+
+        </tr>
+    </table>
+
+
+</div>
+
+<div class="footerpage"></div>
+
+
+</body>
+</html>
+

@@ -59,7 +59,18 @@ div {
 /*左侧列表设置*/
 .L_tb_a{
     list-style: none;
+}
 
+#main li{
+    float: left;
+    list-style: none;
+    color: #050505;
+    width: max-content;
+    text-align: center;
+    border-radius: 5px;
+    background: #ffffff;
+    height: fit-content;
+    border: 2px black solid;
 }
 
 .L_tb_a li {
@@ -89,6 +100,12 @@ div {
 /*中间*/
 #main {
     height: max-content;
+    width: 1200px;
+}
+
+.content_tb{
+
+    height: 450px;
     width: 1200px;
 }
 

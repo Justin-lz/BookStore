@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>图书销售管理系统-购物车</title>
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-3.6.1.js"></script>
+    <script type="text/javascript" src="script/jquery-1.7.2.js"></script>
+    <script>
+
+        $(function () {
+            $(".headerpage").load("html/header.html");
+            $(".footerpage").load("html/footer.html");
+
+            /*从request中获取Bid参数*/
+            function getUrlVars() {
+                var vars=[],
+                    hash;
+                var hashes=window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for (var i=0; i < hashes.length; i++) {
+                    hash=hashes[i].split('=');
+                    vars.push(hash[0]);
+                    vars[hash[0]]=hash[1];
+                }
+                return vars;
+            }
+            var id=getUrlVars()["Bid"];
+
+            /*加载图书信息*/
+            let urlbook="http://localhost:8080/BSM/Book/book?Bid="+id;
+            $.get(urlbook, function (data) {
+
+                    let item = JSON.parse(data);
+                        let  str=` <div><img src="img/book/${item.Bid}.jpg"></div>
+                <div id="Bname">书名：${item.Bname}</div>
+                <div id="Bauthor">作者：${item.Bauthor}</div>
+                <div id="Tname">类型：${item.Tname}</div>
+                <div id="Bprice">原价：${item.Bprice}</div>
+                <div id="Bcount">折扣：${item.Bcount}</div>
+                <div id="Bresume">简介：${item.Bresume}</div>
+                <div><input type="button" value="返回主界面" onclick="Javascript:window.history.go(-1)" ;> <input
+                       id="book_add" style="margin-left: 100px" type="button" value="加入购物车"></div>
+                <br>`;
+                    document.getElementById("book_detail").innerHTML = str;
+                    return false;
+            });
+
+            /*加入购物车*/
+            $("#book_add").click(function () {
+
+
+            });
+        });
+
+    </script>
+
+</head>
+<body id="body">
+
+<div class="headerpage"></div>
+
+
+<div id="main">
+
+    <div class="content_tb" align="center">
+        <div class="OUTSIDE1">
+            <h1 style="text-align: center;">图书详情</h1><br>
+            <div id="book_detail" style="height: 500px;width: 700px" class="OUTSIDE">
+                <div><img src="img/book/1.jpg"></div>
+                <div id="Bname">书名：</div>
+                <div id="Bauthor">作者：</div>
+                <div id="Bpress">类型：</div>
+                <div id="Bprice">原价：</div>
+                <div id="Bcount">折扣：</div>
+                <div id="Bresume">简介：</div>
+                <div><input type="button" value="返回主界面" onclick="Javascript:window.history.go(-1)" ;> <input
+                       id="book_add" style="margin-left: 100px" type="button" value="加入购物车"></div>
+                <br>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="footerpage"></div>
+
+
+</body>
+</html>
+
