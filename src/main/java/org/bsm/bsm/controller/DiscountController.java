@@ -87,9 +87,9 @@ public class DiscountController{
         return null;
     }
 
-    @PostMapping("updateDiscount")
+    @PostMapping("deleteDiscount")
     @ApiOperation(value = "新增折扣",notes = "成功返还null")
-    public String updateDiscount(@RequestParam Integer Did, HttpServletRequest request){
+    public String deleteDiscount(@RequestParam Integer Did, HttpServletRequest request){
         Manager manager=(Manager) request.getSession().getAttribute(SessionAttributeUtil.getManager());
         if (manager==null){
             return "未登录，请登录";
