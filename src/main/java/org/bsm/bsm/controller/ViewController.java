@@ -59,7 +59,7 @@ public class ViewController {
             return "person.html";
     }
 
-    @GetMapping(value = "Book")
+    @GetMapping(value = "book")
     @ApiOperation(value = "书本跳转",notes = "用/xxx表示具体是哪本书的bid,已主动判断是否存在")
     public String book(@RequestParam String Bid) {
         if (bookServiceIml.queryOneBookWithType(Bid)==null)
