@@ -6,6 +6,16 @@ public class Shop{
     private Integer Uid;
     private Integer Scount;
 
+    private Book book;
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
     public Integer getBid(){
         return this.Bid;
     }
