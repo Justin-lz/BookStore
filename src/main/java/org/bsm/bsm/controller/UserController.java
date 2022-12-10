@@ -38,7 +38,7 @@ public class UserController {
     @GetMapping("getUserInfo")
     @ApiOperation("获取用户个人信息,未登录返回false")
     public String getUserInfo(HttpServletRequest request){
-        UserInfo userInfo =(UserInfo) request.getSession().getAttribute("UserInfo");
+        UserInfo userInfo =(UserInfo) request.getSession().getAttribute(SessionAttributeUtil.getUserInfo());
         if (userInfo==null){
             return "false";
         }else {
