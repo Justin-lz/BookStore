@@ -9,51 +9,67 @@
     <script type="text/javascript" src="script/jquery-1.7.2.js"></script>
     <script>
 
+
         $(function () {
             $(".headerpage").load("html/header.html");
             $(".footerpage").load("html/footer.html");
 
             /*从request中获取Bid参数*/
             function getUrlVars() {
-                var vars=[],
+                var vars = [],
                     hash;
-                var hashes=window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-                for (var i=0; i < hashes.length; i++) {
-                    hash=hashes[i].split('=');
+                var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for (var i = 0; i < hashes.length; i++) {
+                    hash = hashes[i].split('=');
                     vars.push(hash[0]);
-                    vars[hash[0]]=hash[1];
+                    vars[hash[0]] = hash[1];
                 }
                 return vars;
             }
-            var id=getUrlVars()["Bid"];
+
+            var id = getUrlVars()["Bid"];
 
             /*加载图书信息*/
-            let urlbook="http://localhost:8080/BSM/Book/book?Bid="+id;
+            let urlbook = "http://localhost:8080/BSM/Book/book?Bid=" + id;
             $.get(urlbook, function (data) {
 
-                    let item = JSON.parse(data);
-                        let  str=` <div><img src="img/book/${item.Bid}.jpg"></div>
+                let item = JSON.parse(data);
+                let str = ` <div><img src="img/book/${item.Bid}.jpg"></div>
                 <div id="Bname">书名：${item.Bname}</div>
                 <div id="Bauthor">作者：${item.Bauthor}</div>
                 <div id="Tname">类型：${item.Tname}</div>
                 <div id="Bprice">原价：${item.Bprice}</div>
-                <div id="Bcount">折扣：${item.Bcount}</div>
-                <div id="Bresume">简介：${item.Bresume}</div>
-                <div><input type="button" value="返回主界面" onclick="Javascript:window.history.go(-1)" ;> <input
-                       id="book_add" style="margin-left: 100px" type="button" value="加入购物车"></div>
-                <br>`;
-                    document.getElementById("book_detail").innerHTML = str;
-                    return false;
+                <div id="Bcount">库存：${item.Bcount}</div>
+                <div id="Bresume">简介：${item.Bresume}</div>`;
+                document.getElementById("book_detail1").innerHTML = str;
+                return false;
             });
 
-            /*加入购物车*/
+
             $("#book_add").click(function () {
+                var num = document.getElementById("num1").value;
 
+                let urladd = "http://localhost:8080/BSM/Shop/add?Bid=" + id + "&Scount=" + num + "";
+                $.post(urladd, function (data) {
+                    if(data==="未登录"){
+                        alert("您还未登录，请先前往登录！");
+                        window.location.href = "login.html"
+                    }
+                    else {
+
+                        alert("已成功添加至购物车");
+                        location.reload(true);
+                    }
+
+
+                })
 
             });
+
         });
 
     </script>
+
 
 </head>
 <body id="body">
@@ -67,17 +83,20 @@
         <div class="OUTSIDE1">
             <h1 style="text-align: center;">图书详情</h1><br>
             <div id="book_detail" style="height: 500px;width: 700px" class="OUTSIDE">
-                <div><img src="img/book/1.jpg"></div>
+                <!--<div><img src="img/book/1.jpg"></div>
                 <div id="Bname">书名：</div>
                 <div id="Bauthor">作者：</div>
                 <div id="Bpress">类型：</div>
                 <div id="Bprice">原价：</div>
-                <div id="Bcount">折扣：</div>
-                <div id="Bresume">简介：</div>
-                <div><input type="button" value="返回主界面" onclick="Javascript:window.history.go(-1)" ;> <input
-                       id="book_add" style="margin-left: 100px" type="button" value="加入购物车"></div>
+                <div id="Bcount">库存：</div>
+                <div id="Bresume">简介：</div>-->
+                <div id="book_detail1"></div>
+                <div><input id="num1" type="number" min="0">
+                    <input
+                            id="book_add" style="margin-left: 100px" type="button" value="加入购物车"></div>
                 <br>
             </div>
+
         </div>
 
     </div>

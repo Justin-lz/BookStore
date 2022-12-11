@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -33,6 +33,7 @@
                     alert("密码不合法！字母/数字5到15位！");
                     return false;
                 }
+
 
 
                 let url = "http://localhost:8080/BSM/User/login?UPword=" + passwordValue + "&Uname=" + usernameValue;
@@ -70,10 +71,9 @@
                 </div>
                 <div class="msg_cont">
                     <b></b>
-                    <span class="errorMsg">并输入用户名和密码</span>
+                    <span class="errorMsg">请输入用户名和密码</span>
                 </div>
                 <div class="form">
-                    <br/>
                     <label>用户账号：</label>
                     <input class="itxt" type="text" placeholder="请输入用户名" autocomplete="off"
                            tabindex="1" name="username" id="username"/>

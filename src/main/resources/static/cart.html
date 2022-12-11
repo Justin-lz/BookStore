@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>图书销售管理系统-购物车</title>
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-3.6.1.js"></script>
+    <script type="text/javascript" src="script/jquery-1.7.2.js"></script>
+    <script>
+
+        let books
+
+        $(function () {
+            $(".headerpage").load("html/header.html");
+            $(".footerpage").load("html/footer.html");
+
+            /*购物车书本内容*/
+            let urlcart = "http://localhost:8080/BSM/Shop/get";
+            $.get(urlcart, function (data) {
+
+                if (data === "true") {
+                    window.location.href = "context.html";
+                    return true;
+                } else {
+                    let str = `<table align="center" border="1" valign="center" style="text-align: center" cellspacing="0"
+                                           cellpadding="25">
+                                        <tr>
+                                            <th><input type="checkbox" id="allChecked" onclick="checkAll()"></th>
+                                            <th>书本序号</th>
+                                            <th>书本</th>
+                                            <th>书本单价</th>
+                                            <th>书本数量</th>
+                                            <th></th>
+                                        </tr>`;
+                    books = JSON.parse(data);
+                    let num=books.length;
+                    books.forEach((item) => {
+                        str +=`<tr><td><input type="checkbox" value="${item.Bid}" name="select1" id="check${item.Bid}"></td>
+                            <td>${item.Bid}</td>
+                            <td><img className="book_img" alt="" src="img/book/${item.Bid}.jpg"/></td>
+                            <td id="price${item.Bid}">${item.book.Bprice}</td>
+                            <td><input id="num${item.Bid}" type="number" min="0" onInput="myFunction(${item.Bid},${num})" value="${item.Scount}"></td>
+                            <td id="del"><input type="button" value="删除" onClick="drop(${item.Bid})"></td>
+                        </tr>`;
+
+                    });
+                    str += `<tr><td>折扣说明</td><td colSpan="5" id="discount"></td></tr></table>`;
+                    str+=`<div style="clear:both "></div>`;
+                    document.getElementById("list11").innerHTML = str;
+                    calculate();
+
+
+                    return false;
+
+                }
+            });
+
+
+            /*收货地址内容*/
+            let urladdress="http://localhost:8080/BSM/address/getAll";
+            $.get(urladdress, function (data) {
+
+                if (data === "true") {
+                    window.location.href = "context.html";
+                    return true;
+                } else {
+                    let str = `<table align="center" border="1" valign="center" style="text-align: center" cellspacing="0"
+              cellpadding="20"    >
+                    <tr>
+                        <th>勾选</th>
+                        <th>收件人</th>
+                        <th>收货地址</th>
+                        <th>联系电话</th>
+                    </tr>`;
+                    let books = JSON.parse(data);
+                    books.forEach((item) => {
+                        str +=`<tr><td><input type="radio" name="select" value="${item.Aid}"></td>
+                        <td>${item.Areceiver}</td>
+                        <td> ${item.Aaddress}</td>
+                        <td>${item.Aphone}</td>
+                    </tr>`;
+
+                    });
+                    str+=`</table><div style="clear:both "></div>`;
+                    document.getElementById("address").innerHTML = str;
+                    return false;
+
+                }
+            });
+
+
+
+
+            $("#pay").click(function () {
+
+                /*找地址*/
+                var item = null;
+                var obj = document.getElementsByName("select")
+                for (var i = 0; i < obj.length; i++) { //遍历Radio
+                    if (obj[i].checked) {
+                        item=obj[i].value;
+                    }
+                }
+                alert(item);/*地址Aid*/
+
+                /*找选中内容*/
+                var  obj1 = document.getElementsByName("select1");
+                let items='';
+                for (var i = 0; i < obj1.length; i++) {
+                    if (obj1[i].checked) {
+                        items += obj1[i].value+"?";
+                    }
+                }
+                alert(items);/*书本Bid*/
+
+
+
+            });
+
+
+        });
+
+    </script>
+
+    <script>
+        //计算价格
+        function calculate(){
+            let total = 0
+            let num=0
+            books.forEach((item)=>{
+                if (document.getElementById(`check${item.Bid}`).checked===true){
+                    total+=item.Scount*item.book.Bprice
+                    num+=item.Scount
+                }
+            })
+
+            document.getElementById("total").innerHTML = total.toString()
+        }
+
+        /*全选*/
+        function checkAll() {
+            let allCheck = document.getElementById('allChecked');
+            if (allCheck.checked = true)
+                $("input[type=checkbox]").prop("checked", "checked");
+            else $("input[type=checkbox]").removeAttr("checked");
+        }
+
+        /*数量变化监听器*/
+        function myFunction(id,all) {
+            // let total=0;
+            // for(var i=1;i<=all;i++){
+            //
+            //     var num = parseInt(document.getElementById("num"+i).value);
+            //     console.log(num);
+            //     var price=parseFloat(document.getElementById("price"+i).innerHTML);
+            //     console.log(price);
+            //     var sum=num*price;
+            //     console.log(sum);
+            //     let check =document.getElementById("check"+i)
+            //     if ()
+            //     total+=sum;
+            // }
+            //
+            // document.getElementById("total").innerHTML = total.toString();
+            let book;
+            let count;
+            books.forEach((item)=>{
+                if (item.Bid==id){
+                    item.Scount=document.getElementById("num"+id).value
+                    book = item.Bid
+                    count = item.Scount
+                }
+            })
+            let urlupdate = "http://localhost:8080/BSM/Shop/update?Bid="+book+"&Scount="+count
+            $.post(urlupdate,function (data){
+                console.log(data)
+            });
+
+            calculate();
+        }
+
+        function drop(id) {
+            let urldel = 'http://localhost:8080/BSM/Shop/delete?Bid=' + id + '';
+            $.post(urldel, function (data) {
+                alert("已成功从购物车移除！")
+                location.reload(true);
+            })
+        }
+
+    </script>
+</head>
+<body id="body">
+
+<div class="headerpage"></div>
+
+
+<div id="main">
+
+
+    <div class="content_tb" align="center">
+        <div style="position: relative" class="OUTSIDE1">
+            <h1 style="text-align: center;">购物车列表</h1><br>
+            <div style="overflow: auto;height: 500px" id="list11">
+
+            <!--<table align="center" border="1" valign="center" style="text-align: center" cellspacing="0"
+                   cellpadding="25">
+                <tr>
+                    <th><input type="checkbox" id="allChecked" onclick="checkAll()"></th>
+                    <th>书本序号</th>
+                    <th>书本</th>
+                    <th>书本单价</th>
+                    <th>书本数量</th>
+                    <th></th>
+                </tr>
+
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>${item.Bid}</td>
+                        <td><img class="book_img" alt="" src="img/book/${item.Bid}.jpg"/></td>
+                        <td id="price1"> ${item.Bid}</td>
+                        <td><input id="num1" type="number" min="0" oninput="myFunction()" value="${item.Scount}"></td>
+                        <td id="del"><input type="button" value="删除" onclick="drop(id)"></td>
+                    </tr>
+                    <tr>
+                        <td>折扣说明</td>
+                        <td colspan="5" id="discount"></td>
+                    </tr>
+
+            </table>-->
+        </div>
+
+            <div class="OUTSIDE1">
+                <div  style="overflow: auto;height: 200px"id="address">
+
+                </div>
+            </div>
+
+            <table align="center" border="0" valign="center" style="text-align: center" cellspacing="0"
+                   cellpadding="25">
+                <tr>
+                    <td style="width: 150px">
+                        <h2>商品总价:</h2>
+                    </td>
+                    <td style="width: 150px">
+                        <div id="total"><h2></h2></div>
+                    </td>
+                    <td><h2>元</h2></td>
+                    <td style="width: 150px">
+                        <input id="pay" type="button" value="付款">
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+
+
+        <br>
+    </div>
+    <br>
+</div>
+
+<div class="footerpage"></div>
+
+
+</body>
+</html>
+

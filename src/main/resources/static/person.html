@@ -14,32 +14,150 @@
             $(".headerpage").load("html/header.html");
             $(".footerpage").load("html/footer.html");
 
+            /*个人信息*/
+            let urlinfo="http://localhost:8080/BSM/User/getUserInfo";
+            $.get(urlinfo, function (data) {
 
-            $.get(urltype, function (data) {
+                let item = JSON.parse(data);
+                let str = `<table style="margin-top: 20px">
+                    <tr>
+                        <td>
+                            <p> 用户名：</p>
+                        </td>
+
+                        <td >
+                            <p id="username">${item.Uname}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p> 生日： </p>
+                        </td>
+
+                        <td>
+                            <input type="date" id="birth" value="${item.Ubirth}">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p> 性别：</p>
+                        </td>
+
+                        <td>
+                            <input type="text" id="sex" value="${item.Usex}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p> 默认地址：</p>
+                        </td>
+
+                        <td>
+                            <input type="text" id="direction" value="${item.Uaddress}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>电话号码： </p>
+                        </td>
+
+                        <td>
+                            <input type="number" id="phone" value="${item.Uphone}">
+                        </td>
+                    </tr>
+
+                </table>`;
+                document.getElementById("info").innerHTML = str;
+                return false;
+            });
+
+
+            /*修改个人信息*/
+            $("#modify").click(function (){
+
+                let Uaddress=document.getElementById("direction").value;
+                console.log(Uaddress)
+                let Ubirth=document.getElementById("birth").value;
+                console.log(Ubirth)
+                let Uphone=document.getElementById("phone").value;
+                console.log(Uphone)
+                let Usex=document.getElementById("sex").value;
+                console.log(Usex)
+
+                let urlmodify="http://localhost:8080/BSM/User/update?" +
+                    "Uaddress="+Uaddress+"&Ubirth="+Ubirth+
+                    "&Uphone="+Uphone+"&Usex="+Usex;
+
+                $.post(urlmodify, function (data){
+
+                    if(data==="修改成功"){
+                        alert("个人信息修改成功");
+                        window.location.replace(location);
+                    }
+                    else alert(data);
+                })
+
+            });
+
+
+            /*新增收货地址*/
+            $("#bt_newadd").click(function (){
+
+                let Nadd=document.getElementById("Nadd").value;
+                let Nreceiver=document.getElementById("Nreceiver").value;
+                let Nphone=document.getElementById("Nphone").value;
+
+                let urlnewaddress="http://localhost:8080/BSM/address/new" +
+                    "?Aaddress="+Nadd+"&Aphone="+Nphone+"&Areceiver="+Nreceiver;
+
+                $.post(urlnewaddress, function (data){
+
+                    if(!data){
+                        alert("添加成功");
+                        window.location.replace(location);
+                    }
+                })
+
+            });
+
+
+            /*收货地址*/
+            let urladdress = "http://localhost:8080/BSM/address/getAll";
+            $.get(urladdress, function (data) {
 
                 if (data === "true") {
                     window.location.href = "context.html";
                     return true;
                 } else {
-                    let str = '';
-                    typeJson = JSON.parse(data);
-                    getSearchBooks();
-                    typeJson.forEach((item) => {
-                        str += `<li class="typeHref" ><a href="http://localhost:8080/search?type=${item.Tid}">${item.Tname}</a><br></li><br>`;
+                    let str = `<table align="center" border="0" valign="center" style="text-align: center" cellspacing="0"
+                       cellpadding="15">
+                    <tr>
+                        <th>收件人</th>
+                        <th>收货地址</th>
+                        <th>联系电话</th>
+                    </tr>`;
+                    let books = JSON.parse(data);
+                    books.forEach((item) => {
+                        str += `<tr>
+                        <td>${item.Areceiver}</td>
+                        <td> ${item.Aaddress}</td>
+                        <td>${item.Aphone}</td>
+                    </tr>`;
 
                     });
-                    document.getElementById("typeClass").innerHTML = str;
-
+                    str += `</table><div style="clear:both "></div>`;
+                    document.getElementById("address").innerHTML = str;
                     return false;
 
                 }
             });
 
 
+
         });
 
 
-        /*图书书名查询*/
 
     </script>
 </head>
@@ -53,70 +171,23 @@
     <table class="content_tb" cellpadding="0" cellspacing="0">
         <tr style="height: 300px">
 
-            <td valign="top" align="center" width="50%" bgcolor="aqua">
+            <!--个人信息-->
+            <td valign="top" align="center" width="50%" class="OUTSIDE1">
                 <br>
                 <h1>个人信息</h1>
-                <table style="margin-top: 20px">
-                    <tr>
-                        <td>
-                            <p> 用户名：</p>
-                        </td>
+                <div id="info">
 
-                        <td>
-                            <p id="username">A</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p> 生日： </p>
-                        </td>
-
-                        <td>
-                            <input type="date" id="birth">
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p> 性别：</p>
-                        </td>
-
-                        <td>
-                            <input type="text" id="sex">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p> 默认地址：</p>
-                        </td>
-
-                        <td>
-                            <input type="text" id="address">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>电话号码： </p>
-                        </td>
-
-                        <td>
-                            <input type="number" id="phone">
-                        </td>
-                    </tr>
-
-                </table>
+                </div>
                 <div style="float: right;margin-right:100px;"><input type="button" id="modify" value="修改"></div>
             </td>
 
-            <td align="center" valign="top" width="50%" bgcolor="red">
+            <!--收货地址-->
+            <td align="center" valign="top" width="50%" class="OUTSIDE1">
                 <br>
                 <h1>收货地址</h1>
                 <br>
-                <ul id="add">
-                    <li style="margin: 3px">军工路516</li>
-                    <li style="margin: 3px">张三</li>
-                    <li style="margin: 3px">188</li>
-                </ul>
+                <div style="overflow: auto;height: 300px" id="address">
+                </div>
 
             </td>
 
@@ -124,19 +195,21 @@
 
         <tr style="height: 150px">
 
-            <td width="50%" bgcolor="blue">
-
-
+            <!--啥也没有-->
+            <td width="50%" class="OUTSIDE1">
             </td>
 
-            <td width="50%" bgcolor="#9932cc">
+            <!--新增收货地址-->
+            <td width="50%" class="OUTSIDE1">
 
-                <div style="padding: 15px">收货地址：<input type="text"><br></div>
-               <div style="padding-left: 31px">收件人：<input type="text"><br></div>
-                <div style="padding: 15px">联系电话：<input type="number"></div>
+                <div align="center" >
+                    <div style="padding: 15px">收货地址：<input id="Nadd" type="text"><br></div>
+                    <div style="padding-left: 25px">收件人：<input id="Nreceiver" type="text"><br></div>
+                    <div style="padding: 15px">联系电话：<input id="Nphone" type="number"></div>
 
-                <div style="float: right;padding-right: 270px;">
-                    <input type="button" id="bt_newadd" value="添加">
+                    <div style="float: right;padding-right: 100px">
+                        <input type="button" id="bt_newadd" value="添加">
+                    </div>
                 </div>
             </td>
 

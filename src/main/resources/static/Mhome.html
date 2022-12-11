@@ -67,7 +67,7 @@
                     window.location.href = "context.html";
                     return true;
                 } else {
-                    let str = '<div align="center"><p><b>热门图书随机推荐</b></p></div>';
+                    let str = '<div align="center"><p><b>网站图书信息</b></p></div>';
                     let bookJson = JSON.parse(data);
                     bookJson.forEach((item) => {
                         str+=`<div class="b_list">
@@ -92,7 +92,7 @@
                                         <span class="sp2"> ${item.Bcount}</span>
                                     </div>
                                     <div class="book_right" >
-                                        <p align="right" width="120px"><a text-align="right" href="http://localhost:8080/book?Bid=${item.Bid}">查看详情</a>
+                                        <p align="right" width="120px"><a text-align="right" href="http://localhost:8080/book?Bid=${item.Bid}">编辑图书</a>
                                     </div>
                                 </div>
                             </div>`;
