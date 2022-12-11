@@ -22,7 +22,7 @@ public interface BookMapper {
     @Insert("INSERT INTO `bsm`.`book` (`Bid`, `Bname`, `Bauthor`, `Bpress`, `Bprice`, `Bcount`, `Bresume`, `Tid`) VALUES (#{Bid}, #{Bname}, #{Bauthor},#{Bpress},#{Bprice},#{Bcount},#{Bresume},#{Tid});")
     Integer insertBook(Book book);//插入书本
 
-    @Update("UPDATE `bsm`.`book` SET `Bname` = #{Bname}, `Bauthor` = #{Bauthor}, `Bpress` = #{Bpress}, `Bprice` = #{Bprice}, `Bcount` = #{Bcount}, `Bresume` = #{Bresume}, `Tid` = '#{Tid}' WHERE (`Bid` = '#{Bid}')")
+    @Update("UPDATE `bsm`.`book` SET `Bname` = #{Bname}, `Bauthor` = #{Bauthor}, `Bpress` = #{Bpress}, `Bprice` = #{Bprice}, `Bcount` = #{Bcount}, `Bresume` = #{Bresume}, `Tid` = #{Tid} WHERE (`Bid` = #{Bid})")
     Integer updateBook(Book book);
 
     @Delete("delete from bsm.book where Bid = #{Bid}")

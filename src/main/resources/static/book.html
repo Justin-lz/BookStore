@@ -31,19 +31,23 @@
 
             /*加载图书信息*/
             let urlbook = "http://localhost:8080/BSM/Book/book?Bid=" + id;
-            $.get(urlbook, function (data) {
 
-                let item = JSON.parse(data);
-                let str = ` <div><img src="img/book/${item.Bid}.jpg"></div>
+                $.get(urlbook, function (data) {
+
+                    let item = JSON.parse(data);
+                    let str = ` <div><img src="img/book/${item.Bid}.jpg"></div>
                 <div id="Bname">书名：${item.Bname}</div>
                 <div id="Bauthor">作者：${item.Bauthor}</div>
                 <div id="Tname">类型：${item.Tname}</div>
                 <div id="Bprice">原价：${item.Bprice}</div>
                 <div id="Bcount">库存：${item.Bcount}</div>
                 <div id="Bresume">简介：${item.Bresume}</div>`;
-                document.getElementById("book_detail1").innerHTML = str;
-                return false;
-            });
+                    str +=``;
+                    document.getElementById("book_detail1").innerHTML = str;
+                    return false;
+                });
+
+
 
 
             $("#book_add").click(function () {
@@ -82,19 +86,14 @@
     <div class="content_tb" align="center">
         <div class="OUTSIDE1">
             <h1 style="text-align: center;">图书详情</h1><br>
-            <div id="book_detail" style="height: 500px;width: 700px" class="OUTSIDE">
-                <!--<div><img src="img/book/1.jpg"></div>
-                <div id="Bname">书名：</div>
-                <div id="Bauthor">作者：</div>
-                <div id="Bpress">类型：</div>
-                <div id="Bprice">原价：</div>
-                <div id="Bcount">库存：</div>
-                <div id="Bresume">简介：</div>-->
+            <div  id="book_detail" style="height: 600px;width: 700px; overflow: auto" class="OUTSIDE">
+
                 <div id="book_detail1"></div>
+
+                <br>
                 <div><input id="num1" type="number" min="0">
                     <input
                             id="book_add" style="margin-left: 100px" type="button" value="加入购物车"></div>
-                <br>
             </div>
 
         </div>

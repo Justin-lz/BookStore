@@ -134,10 +134,11 @@
                     alert("请选择书本")
                     return;
                 }
-                urlRecord+="&Rdiscount="+disStr+"&Rprice="+total.toString()
+                urlRecord+="&Rdiscount=’"+disStr+"‘&Rprice="+total.toString()
                 console.log(urlRecord);/*书本Bid*/
 
                 $.post(urlRecord,function (data){
+                    console.log(data)
                     if (data.length===0){
                         alert("新建成功")
                         window.location.href="http://localhost:8080/history"
@@ -146,7 +147,6 @@
 
 
             });
-
 
         });
 
@@ -234,7 +234,7 @@
     <div class="content_tb" align="center">
         <div style="position: relative" class="OUTSIDE1">
             <h1 style="text-align: center;">购物车列表</h1><br>
-            <div style="overflow: auto;height: 500px" id="list11">
+            <div  id="list11">
 
             <!--<table align="center" border="1" valign="center" style="text-align: center" cellspacing="0"
                    cellpadding="25">

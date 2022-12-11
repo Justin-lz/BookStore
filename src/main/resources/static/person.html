@@ -55,6 +55,7 @@
 
                         <td>
                             <input type="text" id="direction" value="${item.Uaddress}">
+
                         </td>
                     </tr>
                     <tr>
@@ -68,6 +69,7 @@
                     </tr>
 
                 </table>`;
+                console.log(str)
                 document.getElementById("info").innerHTML = str;
                 return false;
             });
@@ -93,7 +95,6 @@
 
                     if(data==="修改成功"){
                         alert("个人信息修改成功");
-                        window.location.replace(location);
                     }
                     else alert(data);
                 })

@@ -8,10 +8,8 @@
     <script src="js/jquery-3.6.1.js"></script>
     <script type="text/javascript" src="script/jquery-1.7.2.js"></script>
     <script>
-
-
         $(function () {
-            $(".headerpage").load("html/header.html");
+            $(".headerpage").load("html/Mheader.html");
             $(".footerpage").load("html/footer.html");
 
             /*从request中获取Bid参数*/
@@ -27,20 +25,18 @@
                 return vars;
             }
 
-            var id = getUrlVars()["Bid"];
-            let urlbook = "http://localhost:8080/BSM/Book/book?Bid=" + id;
+            let id = getUrlVars()["Bid"];
+            let urlbook = "http://localhost:8080/BSM/Book/book?Bid="+id;
             /*加载图书信息*/
-
-            if(id===999){
+            if(id==="0"){
                 /*添加*/
-                $.get(urlbook, function (data) {
+                $.get(urlbook, function () {
 
                     let str = `<table align="center" border="0" valign="center" style="text-align: center" cellSpacing="0"
                                 cellPadding="15">`;
-                    let item = JSON.parse(data);
                     str += `  <tr>
                         <td>图片</td>
-                        <td> <div  id="Bpicture" contenteditable="true"><img src="img/book/${item.Bid}.jpg"></div></td>
+                        <td> <div  id="Bpicture" contenteditable="true"></div></td>
                     </tr>
                     <tr>
                         <td>书名</td>
@@ -64,22 +60,22 @@
                     </tr>
                     <tr>
                         <td>简介</td>
-                        <td><div id="Bresume" contenteditable="true" >?</div></td>
+                        <td><div id="Bresume" contenteditable="true" style="width: 300px;word-break:break-all" >?</div></td>
                     </tr>
                     <tr>
                         <td align="center" colspan="2">
                             <input
-                            id="book_add" style="margin-left: 100px" type="button" value="添加图书">
+                            id="book_add" style="margin-left: 100px" type="button" value="添加图书" onclick="book_add(parseInt(Math.random() * (100 + 1)))">
                         </td>
                     </tr>
                    </table>
                 <br>`;
-                    document.getElementById("book_detail1").innerHTML = str;
+                    document.getElementById("book_detail").innerHTML = str;
                     return false;
                 });
             }/*编辑*/
-            else $.get(urlbook, function (data) {
-
+            else {
+            $.get(urlbook, function (data) {
                 let str = `<table align="center" border="0" valign="center" style="text-align: center" cellSpacing="0"
                                 cellPadding="15">`;
                 let item = JSON.parse(data);
@@ -113,100 +109,100 @@
                     </tr>
                     <tr>
                         <td>
-                            <input id="book_del"  type="button" value="删除图书">
+                            <input id="book_del"  type="button" value="删除图书" onclick="book_del(${item.Bid})">
                         </td>
                         <td>
-                            <input id="book_modify" type="button" value="修改信息">
+                            <input id="book_modify" type="button" value="修改信息" onclick="book_modify(${item.Bid})">
                         </td>
                     </tr>
                    </table>
                 <br>`;
-                document.getElementById("book_detail1").innerHTML = str;
+                document.getElementById("book_detail").innerHTML = str;
                 return false;
             });
+        }
 
-
-            $("#book_modify").click(function () {
-                var Bpicture = document.getElementById("Bpicture").innerHTML;
-                var Bname = document.getElementById("Bname").innerHTML;
-                var Bauthor = document.getElementById("Bauthor").innerHTML;
-                var Tname = document.getElementById("Tname").innerHTML;
-                var Bprice = document.getElementById("Bprice").innerHTML;
-                var Bcount = document.getElementById("Bcount").innerHTML;
-                var Bresume = document.getElementById("Bresume").innerHTML;
-
-                let urlmodifybook="http://localhost:8080/BSM/Book/update?" +
-                    "bauthor="+Bauthor+"&bcount="+Bcount+"&bid="+id+"&bname="+Bname+"&" +
-                    "bpress=D&bprice="+Bprice+"&bresume="+Bresume+"&tid=4&tname="+Tname;
-
-                $.post(urlmodifybook, function (data) {
-                    if(data==="未登录，请登录"){
-                        alert("您还未登录，请先前往登录！");
-                        window.location.href = "login.html"
-                    }
-                    else {
-                        alert("编辑成功");
-                        location.reload(true);
-                    }
-
-
-                })
-
-            });
-            $("#book_add").click(function () {
-                var Bpicture = document.getElementById("Bpicture").innerHTML;
-                var Bname = document.getElementById("Bname").innerHTML;
-                var Bauthor = document.getElementById("Bauthor").innerHTML;
-                var Tname = document.getElementById("Tname").innerHTML;
-                var Bprice = document.getElementById("Bprice").innerHTML;
-                var Bcount = document.getElementById("Bcount").innerHTML;
-                var Bresume = document.getElementById("Bresume").innerHTML;
-
-                   let urladdbook="http://localhost:8080/BSM/Book/insert?" +
-                    "bauthor="+Bauthor+"&bcount="+Bcount+"&bid="+id+"&bname="+Bname+"&" +
-                    "bpress=D&bprice="+Bprice+"&bresume="+Bresume+"&tid=4&tname="+Tname;
-
-                $.post(urladdbook, function (data) {
-                    if(data==="未登录，请登录"){
-                        alert("您还未登录，请先前往登录！");
-                        window.location.href = "login.html"
-                    }
-                    else {
-                        alert("添加成功");
-                        location.reload(true);
-                    }
-
-
-                })
-
-            });
-            $("#book_del").click(function () {
-
-                let urldel="http://localhost:8080/BSM/Book/delete?Bid="+id;
-                $.post(urldel, function (data) {
-                    if(data==="未登录，请登录"){
-                        alert("您还未登录，请先前往登录！");
-                        window.location.href = "login.html"
-                    }
-                    else {
-                        alert("删除成功");
-                        location.reload(true);
-                    }
-
-
-                })
-
-            });
 
         });
 
     </script>
+    <script>
+
+
+        function book_del(id){
+            let urldel="http://localhost:8080/BSM/Book/delete?Bid="+id;
+            $.post(urldel, function (data) {
+                if(data==="未登录，请登录"){
+                    alert("您还未登录，请先前往登录！");
+                    window.location.href = "http://localhost:8080/Mlogin.html"
+                }
+                else {
+                    alert("删除成功");
+                    window.location.href = "http://localhost:8080/Mhome.html";
+                }
+
+
+            })
+        }
+        function book_modify(id){
+            const Bname = document.getElementById("Bname").innerHTML;
+            const Bauthor = document.getElementById("Bauthor").innerHTML;
+            const Tname = document.getElementById("Tname").innerHTML;
+            const Bprice = document.getElementById("Bprice").innerHTML;
+            const Bcount = document.getElementById("Bcount").innerHTML;
+            const Bresume = document.getElementById("Bresume").innerHTML;
+
+            let urlmodifybook="http://localhost:8080/BSM/Book/update?" +
+                "bauthor="+Bauthor+"&bcount="+Bcount+"&bid="+id+"&bname="+Bname+"&" +
+                "bpress=USST&bprice="+Bprice+"&bresume="+Bresume+"&tid=2&tname="+Tname;
+
+            $.post(urlmodifybook, function (data) {
+                if(data==="未登录，请登录"){
+                    alert("您还未登录，请先前往登录！");
+                    window.location.href = "http://localhost:8080/Mlogin.html";
+                }
+                else {
+                    alert("编辑成功");
+                    window.location.href = "http://localhost:8080/Mhome.html";
+                }
+
+
+            })
+        }
+        function book_add(id){
+            var Bname = document.getElementById("Bname").innerHTML;
+            var Bauthor = document.getElementById("Bauthor").innerHTML;
+            var Tname = document.getElementById("Tname").innerHTML;
+            var Bprice = document.getElementById("Bprice").innerHTML;
+            var Bcount = document.getElementById("Bcount").innerHTML;
+            var Bresume = document.getElementById("Bresume").innerHTML;
+
+            let urladdbook="http://localhost:8080/BSM/Book/insert?" +
+                "bauthor="+Bauthor+"&bcount="+Bcount+"&bid="+id+"&bname="+Bname+"&" +
+                "bpress=USST&bprice="+Bprice+"&bresume="+Bresume+"&tid=2&tname="+Tname;
+
+            $.post(urladdbook, function (data) {
+                if(data==="未登录，请登录"){
+                    alert("您还未登录，请先前往登录！");
+                    window.location.href = "http://localhost:8080/Mlogin.html";
+                }
+                else {
+                    alert("添加成功");
+                    window.location.href = "http://localhost:8080/Mhome.html";
+                }
+
+
+            })
+        }
+        
+    </script>
+
 
 
 </head>
 <body id="body">
 
-<div class="headerpage"></div>
+<div align="center" class="headerpage"></div>
 
 
 <div id="main">
@@ -214,48 +210,7 @@
     <div class="content_tb" align="center">
         <div class="OUTSIDE1">
             <h1 style="text-align: center;">编辑图书</h1><br>
-            <div id="book_detail" style="height: 500px;width: 700px" class="OUTSIDE">
-<!--
-                <table align="center" border="0" valign="center" style="text-align: center" cellspacing="0"
-                       cellpadding="15">
-                    <tr>
-                        <td>图片</td>
-                        <td> <div  id="Bpicture" contenteditable="true"><img src="img/book/${item.Bid}.jpg"></div></td>
-                    </tr>
-                    <tr>
-                        <td>书名</td>
-                        <td> <div id="Bname" contenteditable="true">${item.Bname}</div></td>
-                    </tr>
-                    <tr>
-                        <td>作者</td>
-                        <td><div id="Bauthor" contenteditable="true">${item.Bauthor}</div></td>
-                    </tr>
-                    <tr>
-                        <td>类型</td>
-                        <td><div id="Tname" contenteditable="true">${item.Tname}</div></td>
-                    </tr>
-                    <tr>
-                        <td>原价</td>
-                        <td><div id="Bprice" contenteditable="true">${item.Bprice}</div></td>
-                    </tr>
-                    <tr>
-                        <td>库存</td>
-                        <td><div id="Bcount" contenteditable="true">${item.Bcount}</div></td>
-                    </tr>
-                    <tr>
-                        <td>简介</td>
-                        <td><div id="Bresume" contenteditable="true" >${item.Bresume}</div></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input id="book_del"  type="button" value="删除图书">
-                        </td>
-                        <td>
-                            <input id="book_modify" type="button" value="修改信息">
-                        </td>
-                    </tr>
-                   </table>
--->
+            <div id="book_detail" style="width: 700px;"class="OUTSIDE">
                 <br>
 
                     </div>

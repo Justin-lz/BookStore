@@ -23,6 +23,8 @@ body {
     padding: 15px;
 }
 
+
+
 /*所有超链接的设置*/
 
 body a{
@@ -105,7 +107,7 @@ div {
 
 .content_tb{
 
-    height: 450px;
+    height: max-content;
     width: 1200px;
 }
 

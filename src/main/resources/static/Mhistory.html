@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>图书销售管理系统-个人中心</title>
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-3.6.1.js"></script>
+    <script type="text/javascript" src="script/jquery-1.7.2.js"></script>
+    <script>
+
+
+        $(function () {
+            $(".headerpage").load("html/Mheader.html");
+            $(".footerpage").load("html/footer.html");
+
+
+            /*用户订单信息*/
+            let urlhistory1 = "http://localhost:8080/Bsm/Record/getByManager";
+            $.get(urlhistory1, function (data) {
+
+                let str = `<table align="center" border="0" valign="center" style="text-align: center" cellspacing="0"
+                       cellpadding="5">
+                    <tr>
+                        <th>订单时间</th>
+                        <th>地址编号</th>
+                        <th>订单价格</th>
+                        <th>订单折扣</th>
+                        <th>审核发货</th>
+                        <th>是否签收</th>
+                        <th>订单内容</th>
+                        <th>审核发货</th>
+                        <th>删除订单</th>
+                    </tr>`;
+                let books = JSON.parse(data);
+                books.forEach((item) => {
+                    str += `<tr>
+                        <td>${item.Rtime}</td>
+                        <td>${item.Aid}</td>
+                        <td>${item.Rprice}</td>
+                        <td>${item.Rdiscount}</td>
+                        <td>${item.Rcheck}</td>
+                        <td>${item.Rdeliever}</td>`
+                    let str1 = `<table align="center" border="0" valign="center" style="text-align: center" cellspacing="0"
+                       cellpadding="2">
+                    <tr>
+                        <td>书本编号</td>
+                        <td>书本名称</td>
+                        <td>书本数量</td>
+                    </tr>`;
+                    item.histories.forEach((his) => {
+                        str1 += `<tr><td>${his.Bid}</td><td>${his.Bname}</td><td>${his.count}</td></tr>`
+                    })
+                    str1 += `</table>`;
+                    str += `<td ><div style="overflow: auto;height: 100px">`;
+                    str += str1
+                    str += `</div></td>`
+                    str += `<td><input type="button" value="审核发货" onclick="agree(${item.Rid})"></td>
+<td><input type="button" value="删除订单" onclick="dele(${item.Rid})"></td>
+
+                            </tr>`;
+
+                });
+                str += `</table><div style="clear:both "></div>`;
+                document.getElementById("itemss").innerHTML = str;
+                return false;
+
+            });
+
+        });
+    </script>
+
+    <script>
+
+
+        /*审核订单*/
+        function agree(Rid){
+            let urlagree="http://localhost:8080/Bsm/Record/checkByManager?Rid="+Rid;
+           let urlsend= "http://localhost:8080/Bsm/Record/deliverByManager?Rid="+Rid;
+            $.post(urlagree, function (data) {
+
+                if(data==="1") {
+                    $.post(urlsend, function (data) {
+
+                    if(data==="1")
+                    {alert("订单审核发货已通过！");
+                        window.location.replace(location);}
+                    else alert("删除失败！")
+
+                })
+                } else alert("删除失败！")
+
+            })
+
+        }
+
+       /*删除订单*/
+        function dele(Rid){
+
+            let urldele="http://localhost:8080/Bsm/Record/deleterByManager?Rid="+Rid
+            $.post(urldele, function (data) {
+
+                if(data==="1")
+                {alert("订单删除成功！");
+                    window.location.replace(location);
+                }
+                else alert("删除失败")
+
+        })
+
+        }
+
+    </script>
+</head>
+<body id="body">
+
+<div align="center" class="headerpage"></div>
+
+
+<div id="main" class="OUTSIDE1">
+    <div align="center"><h2>未审核通过订单信息：</h2></div>
+    <div align="center" id="itemss" style="height: 500px;overflow: auto">
+
+
+    </div>
+</div>
+
+<div class="footerpage"></div>
+
+</body>
+</html>
+
