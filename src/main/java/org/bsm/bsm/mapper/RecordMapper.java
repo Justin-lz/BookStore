@@ -16,7 +16,7 @@ public interface RecordMapper {
     @Select("Select * from bsm.record where (Uid = #{Uid}) order by Rtime desc limit 1 ")
     Record getRecord(Record record);
 
-    @Select("Select * from bsm.record where (Rid = #{Rid})")
+    @Select("Select * from bsm.record where (Uid = #{Uid})")
     List<Record> getRecordByUid(Integer Uid);
 
     @Select("Select * from bsm.record where Rcheck = 'no' or Rdeliever ='no'")
